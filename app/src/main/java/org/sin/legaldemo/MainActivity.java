@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -15,21 +14,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import org.sin.legaldemo.Fragment.LoginFragment;
 import org.sin.legaldemo.Fragment.RegisterFragment;
 import org.sin.legaldemo.JavaBean.UserBean;
 
-import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobUser;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private FragmentTransaction fragmentTransaction;
-    private Intent intent;
-    private LoginFragment loginFragment;
-    private RegisterFragment registerFragment;
+    private TextView tv_username;
+    private UserBean user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +37,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void init(){
-        Bmob.initialize(this,"3301002323635c3de86e559312f80d70");
 
-        loginFragment = new LoginFragment();
-        registerFragment = new RegisterFragment();
-        fragmentTransaction = getSupportFragmentManager().beginTransaction();
-
+        user = BmobUser.getCurrentUser(getApplicationContext(),UserBean.class);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -67,6 +60,14 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        View headerview  = navigationView.getHeaderView(0);
+
+        tv_username = (TextView)headerview.findViewById(R.id.tv_username);
+        tv_username.setText(user.getNick());
+
+
+
     }
 
     @Override
@@ -107,11 +108,12 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_login) {
-            fragmentTransaction.replace(R.id.fragment_content,loginFragment);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
+        if (id == R.id.nav_write_off) {
+            UserBean.logOut(this);
+            UserBean.getCurrentUser(this);
+            Utils.start_Activity(this,WelcomeActivity.class);
         } else if (id == R.id.nav_gallery) {
+
         } else if (id == R.id.nav_slideshow) {
         } else if (id == R.id.nav_manage) {
 

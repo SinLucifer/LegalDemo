@@ -12,6 +12,8 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import org.sin.legaldemo.JavaBean.UserBean;
+import org.sin.legaldemo.Utils;
+import org.sin.legaldemo.MainActivity;
 import org.sin.legaldemo.R;
 
 import cn.bmob.v3.listener.SaveListener;
@@ -28,9 +30,7 @@ public class RegisterFragment extends Fragment {
     private RadioGroup rg_isLawyer;
     private Button btn_register;
 
-    private String user_name;
-    private String user_passwd;
-    private String user_nickname;
+    private UserBean user;
     private boolean user_sex = true;
     private boolean user_isLawyer = false;
 
@@ -38,7 +38,7 @@ public class RegisterFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.register_fragment,container,false);
+        view = inflater.inflate(R.layout.fragment_register,container,false);
 
         init();
 
@@ -46,6 +46,15 @@ public class RegisterFragment extends Fragment {
     }
 
     private void init(){
+
+        btn_register = (Button)view.findViewById(R.id.btn_register);
+        btn_register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onRegister();
+            }
+        });
+
         et_username = (EditText)view.findViewById(R.id.et_username);
         et_username.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -54,6 +63,9 @@ public class RegisterFragment extends Fragment {
                     if (et_username.getText().toString().trim().length() < 4){
                         Toast.makeText(getActivity(), "用户名不能小于4个字符",
                                 Toast.LENGTH_SHORT).show();
+                        btn_register.setEnabled(false);
+                    } else {
+                        btn_register.setEnabled(true);
                     }
                 }
             }
@@ -67,6 +79,9 @@ public class RegisterFragment extends Fragment {
                     if (et_password.getText().toString().trim().length() < 8){
                         Toast.makeText(getActivity(), "密码不能小于8个字符",
                                 Toast.LENGTH_SHORT).show();
+                        btn_register.setEnabled(false);
+                    } else {
+                        btn_register.setEnabled(true);
                     }
                 }
             }
@@ -90,19 +105,10 @@ public class RegisterFragment extends Fragment {
                     user_isLawyer = true;
             }
         });
-
-        btn_register = (Button)view.findViewById(R.id.btn_register);
-        btn_register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onRegister();
-            }
-        });
-
     }
 
     public void onRegister(){
-        UserBean user = new UserBean();
+        user = new UserBean();
         user.setUsername(et_username.getText().toString().trim());
         user.setPassword(et_password.getText().toString().trim());
         user.setNick(et_nickname.getText().toString().trim());
@@ -114,6 +120,19 @@ public class RegisterFragment extends Fragment {
             public void onSuccess() {
                 Toast.makeText(getActivity(), "注册成功",
                         Toast.LENGTH_SHORT).show();
+
+                user.login(getContext(), new SaveListener() {
+                    @Override
+                    public void onSuccess() {
+                        Utils.start_Activity(getActivity(), MainActivity.class);
+                    }
+
+                    @Override
+                    public void onFailure(int i, String s) {
+
+                    }
+                });
+
             }
 
             @Override
