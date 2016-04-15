@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_margin="0.0dip" >
+
+    <ImageView
+        android:id="@+id/iv_item"
+        android:layout_width="58.0dip"
+        android:layout_height="58.0dip"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_menu_camera"/>
+
+    <TextView
+        android:id="@+id/tv_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_item"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5.0dip"
+        android:maxLines="1"
+        android:textColor="#000000"
+        android:textSize="14.0sp"
+        android:text="test"/>
+
+</RelativeLayout>

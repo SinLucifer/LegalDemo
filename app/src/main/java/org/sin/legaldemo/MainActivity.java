@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import org.sin.legaldemo.Fragment.LoginFragment;
 import org.sin.legaldemo.Fragment.RegisterFragment;
 import org.sin.legaldemo.JavaBean.UserBean;
+import org.sin.legaldemo.NormalUserFragment.SelectFragment;
 
 import cn.bmob.v3.BmobUser;
 
@@ -43,14 +45,14 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -66,6 +68,15 @@ public class MainActivity extends AppCompatActivity
         tv_username = (TextView)headerview.findViewById(R.id.tv_username);
         tv_username.setText(user.getNick());
 
+        if (user.isLayer()){
+            Log.d("Sin","is a layer");
+        }else {
+            Log.d("Sin","is not a layer");
+            SelectFragment mFragment = new SelectFragment();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.main_fragment_container,mFragment);
+            transaction.commit();
+        }
 
 
     }
