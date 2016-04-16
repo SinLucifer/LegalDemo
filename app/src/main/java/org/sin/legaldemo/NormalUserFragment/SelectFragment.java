@@ -47,6 +47,9 @@ public class SelectFragment extends Fragment {
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
 
+                Content.isTask = true;
+
+
             }
         });
 

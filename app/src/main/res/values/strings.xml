@@ -5,4 +5,9 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <!--task_publish-->
+    <string name="tp_title">" 标题"</string>
+    <string name="tp_type">" 类型："</string>
+    <string name="tp_content">" 内容"</string>
 </resources>
