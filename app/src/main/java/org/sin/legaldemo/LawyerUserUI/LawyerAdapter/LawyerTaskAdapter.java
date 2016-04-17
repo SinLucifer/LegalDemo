@@ -14,14 +14,20 @@ import org.sin.legaldemo.Util.Utils;
 
 import java.util.List;
 
-/**
- * Created by dola321 on 2016/4/17.
- */
+
 public class LawyerTaskAdapter extends ArrayAdapter<Task> {
     private int lId;
     public LawyerTaskAdapter(Context context, int LId, List<Task> objects){
         super(context, LId, objects);
         lId = LId;
+    }
+
+    private final class ViewHolder{
+        TextView title;
+        TextView type;
+        TextView content;
+        TextView created;
+
     }
 
     @Override
@@ -48,12 +54,4 @@ public class LawyerTaskAdapter extends ArrayAdapter<Task> {
         viewHolder.created.setText(temp.getCreatedAt() + "发布");
         return view;
     }
-}
-
-class ViewHolder{
-    TextView title;
-    TextView type;
-    TextView content;
-    TextView created;
-
 }

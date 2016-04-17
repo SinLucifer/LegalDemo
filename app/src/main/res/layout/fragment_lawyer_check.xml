@@ -6,7 +6,7 @@
 
 
 
-    <org.sin.legaldemo.CustomListView
+    <org.sin.legaldemo.LawyerUserUI.CustomListView
         android:id="@+id/clv"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />

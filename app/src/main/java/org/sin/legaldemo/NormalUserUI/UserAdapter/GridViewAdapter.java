@@ -37,25 +37,8 @@ public class GridViewAdapter extends BaseAdapter {
     }
 
     private final class MyViewHolder {
-
         TextView tv_item;
         ImageView iv_item;
-
-        public TextView getTv_item() {
-            return tv_item;
-        }
-
-        public void setTv_item(TextView tv_item) {
-            this.tv_item = tv_item;
-        }
-
-        public ImageView getIv_item() {
-            return iv_item;
-        }
-
-        public void setIv_item(ImageView iv_item) {
-            this.iv_item = iv_item;
-        }
     }
 
     @Override

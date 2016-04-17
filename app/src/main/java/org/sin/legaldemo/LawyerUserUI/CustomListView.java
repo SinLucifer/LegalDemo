@@ -1,4 +1,4 @@
-package org.sin.legaldemo;
+package org.sin.legaldemo.LawyerUserUI;
 
 import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -18,13 +18,12 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import org.sin.legaldemo.R;
 import org.xml.sax.Attributes;
 
 import java.util.Date;
 
-/**
- * Created by dola321 on 2016/4/17.
- */
+
 public class CustomListView extends ListView implements OnScrollListener{
 
     private final static int RELEASE_To_REFRESH = 0;// 下拉过程的状态值
@@ -272,7 +271,7 @@ public class CustomListView extends ListView implements OnScrollListener{
         ViewGroup.LayoutParams params = child.getLayoutParams();
         if (params == null) {
             params = new ViewGroup.LayoutParams(
-                    ViewGroup.LayoutParams.FILL_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT);
         }
         int childWidthSpec = ViewGroup.getChildMeasureSpec(0, 0 + 0,

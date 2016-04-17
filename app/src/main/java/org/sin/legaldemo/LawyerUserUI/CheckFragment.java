@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import android.widget.AdapterView;
 import android.widget.Toast;
 
 
-import org.sin.legaldemo.CustomListView;
 import org.sin.legaldemo.JavaBean.Task;
 import org.sin.legaldemo.JavaBean.UserBean;
 import org.sin.legaldemo.LawyerUserUI.LawyerAdapter.LawyerTaskAdapter;
@@ -26,12 +24,9 @@ import java.util.List;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 
-/**
- * Created by dola321 on 2016/4/17.
- */
+
 public class CheckFragment extends Fragment {
 
     private View mView;
@@ -124,9 +119,20 @@ public class CheckFragment extends Fragment {
 
                 dialog.dismiss();
 
-                if (temp.getLawyer() == null){
-                    temp.setLawyer(BmobUser.getCurrentUser(getContext(), UserBean.class));
+                if (temp.isBook()){
+                    AlertDialog.Builder tooLate = new AlertDialog.Builder(getContext());
+                    tooLate.setMessage("该单以被抢");
+                    tooLate.setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    tooLate.create().show();
+                }else {
+                    temp.setBook(true);
                     String objectID = temp.getObjectId();
+                    temp.setLawyer(BmobUser.getCurrentUser(getContext(), UserBean.class));
                     temp.update(getContext(), objectID , new UpdateListener() {
                         @Override
                         public void onSuccess() {
@@ -138,16 +144,6 @@ public class CheckFragment extends Fragment {
                             Toast.makeText(getContext(), "抢单失败，请稍后重试" + s, Toast.LENGTH_SHORT).show();
                         }
                     });
-                }else {
-                    AlertDialog.Builder tooLate = new AlertDialog.Builder(getContext());
-                    tooLate.setMessage("该单以被抢");
-                    tooLate.setNegativeButton("确定", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-                    tooLate.create().show();
                 }
 
             }
