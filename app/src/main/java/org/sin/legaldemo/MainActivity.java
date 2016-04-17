@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity
             UserBean.getCurrentUser(this);
             Utils.start_Activity(this, WelcomeActivity.class);
         } else if (id == R.id.nav_show_task) {
-
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         } else if (id == R.id.nav_slideshow) {
         } else if (id == R.id.nav_manage) {
 
