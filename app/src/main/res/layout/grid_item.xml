@@ -22,6 +22,6 @@
         android:maxLines="1"
         android:textColor="#000000"
         android:textSize="14.0sp"
-        android:text="test"/>
+        android:text="@string/default_string"/>
 
 </RelativeLayout>

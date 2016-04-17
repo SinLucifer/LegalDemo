@@ -1,9 +1,6 @@
 package org.sin.legaldemo;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
@@ -17,19 +14,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import org.sin.legaldemo.Fragment.LoginFragment;
-import org.sin.legaldemo.Fragment.RegisterFragment;
 import org.sin.legaldemo.JavaBean.UserBean;
 import org.sin.legaldemo.LawyerUserFragment.CheckFragment;
-import org.sin.legaldemo.NormalUserFragment.SelectFragment;
+import org.sin.legaldemo.NormalUserUI.SelectFragment;
+import org.sin.legaldemo.Util.Content;
+import org.sin.legaldemo.Util.Utils;
+import org.sin.legaldemo.WelcomeUI.LoginFragment;
+import org.sin.legaldemo.WelcomeUI.WelcomeActivity;
 
 import cn.bmob.v3.BmobUser;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
-    private TextView tv_username;
-    private UserBean user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +35,9 @@ public class MainActivity extends AppCompatActivity
         init();
     }
 
-    private void init(){
+    private void init() {
 
-        user = BmobUser.getCurrentUser(getApplicationContext(),UserBean.class);
+        UserBean user = BmobUser.getCurrentUser(getApplicationContext(), UserBean.class);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -64,22 +60,23 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        View headerView  = navigationView.getHeaderView(0);
 
-        tv_username = (TextView)headerView.findViewById(R.id.tv_username);
+        View headerView = navigationView.getHeaderView(0); //为了设置侧边栏的东西才获得的
+
+        TextView tv_username = (TextView) headerView.findViewById(R.id.tv_username);
         tv_username.setText(user.getNick());
 
-        if (user.isLayer()){
-            Log.d("Sin","is a layer");
+        if (user.isLayer()) {
+            Log.d("Sin", "is a layer");
             CheckFragment mFragment = new CheckFragment();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.main_fragment_container,mFragment);
+            transaction.replace(R.id.main_fragment_container, mFragment);
             transaction.commit();
-        }else {
-            Log.d("Sin","is not a layer");
+        } else {
+            Log.d("Sin", "is not a layer");
             SelectFragment mFragment = new SelectFragment();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.main_fragment_container,mFragment);
+            transaction.replace(R.id.main_fragment_container, mFragment);
             transaction.commit();
         }
 
@@ -95,7 +92,6 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
-
 
 
     @Override
@@ -122,10 +118,10 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        if (Content.isTask){
+        if (Content.isTask) {
             menu.findItem(R.id.main_toolbar_send).setVisible(true);
             menu.findItem(R.id.main_toolbar_settings).setVisible(false);
-        }else{
+        } else {
             menu.findItem(R.id.main_toolbar_send).setVisible(false);
         }
         return super.onPrepareOptionsMenu(menu);
@@ -140,16 +136,9 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_write_off) {
             UserBean.logOut(this);
             UserBean.getCurrentUser(this);
-            Utils.start_Activity(this,WelcomeActivity.class);
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+            Utils.start_Activity(this, WelcomeActivity.class);
+        } else if (id == R.id.nav_show_task) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

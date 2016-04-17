@@ -2,14 +2,20 @@ package org.sin.legaldemo.JavaBean;
 
 import cn.bmob.v3.BmobUser;
 
-/**
- * Created by Sin on 2016/4/12.
- */
 public class UserBean extends BmobUser {
 
     private String nick;
     private boolean sex;
     private boolean isLayer;
+    private Task mTask;
+
+    public Task getmTask() {
+        return mTask;
+    }
+
+    public void setmTask(Task mTask) {
+        this.mTask = mTask;
+    }
 
     public boolean isLayer() {
         return isLayer;
@@ -31,7 +37,7 @@ public class UserBean extends BmobUser {
         this.sex = sex;
     }
 
-    public boolean getSex(){
+    public boolean getSex() {
         return sex;
     }
 
