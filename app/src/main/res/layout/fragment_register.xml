@@ -28,6 +28,7 @@
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="40dp"
                 android:hint="@string/lg_username"
+                android:singleLine="true"
                 android:textColorHint="@color/deep_gray" />
 
             <EditText
@@ -38,6 +39,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="40dp"
+                android:singleLine="true"
                 android:hint="@string/lg_password"
                 android:inputType="numberPassword|textPassword"
                 android:textColorHint="@color/deep_gray" />
@@ -50,6 +52,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="40dp"
+                android:singleLine="true"
                 android:hint="@string/re_nickname"
                 android:textColorHint="@color/deep_gray" />
 

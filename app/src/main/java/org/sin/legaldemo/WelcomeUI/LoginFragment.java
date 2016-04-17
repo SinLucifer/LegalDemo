@@ -33,6 +33,8 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_login, container, false);
+        et_username = (EditText) mView.findViewById(R.id.et_username);
+        et_password = (EditText) mView.findViewById(R.id.et_userpwd);
 
         btn_login = (Button) mView.findViewById(R.id.btn_login);
         btn_login.setOnClickListener(new View.OnClickListener() {
@@ -40,40 +42,18 @@ public class LoginFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-                login();
+                if (et_username.getText().toString().trim().length() < 4) {
+                    Toast.makeText(getActivity(), "用户名不能小于4个字符",
+                            Toast.LENGTH_SHORT).show();
+                }
+                else if (et_password.getText().toString().trim().length() < 8) {
+                    Toast.makeText(getActivity(), "密码不能小于8个字符",
+                            Toast.LENGTH_SHORT).show();
+                }
+                else login();
             }
         });
 
-        et_username = (EditText) mView.findViewById(R.id.et_username);
-        et_username.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    if (et_username.getText().toString().trim().length() < 4) {
-                        Toast.makeText(getActivity(), "用户名不能小于4个字符",
-                                Toast.LENGTH_SHORT).show();
-                        btn_login.setEnabled(false);
-                    } else {
-                        btn_login.setEnabled(true);
-                    }
-                }
-            }
-        });
-        et_password = (EditText) mView.findViewById(R.id.et_userpwd);
-        et_password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    if (et_password.getText().toString().trim().length() < 8) {
-                        Toast.makeText(getActivity(), "密码不能小于8个字符",
-                                Toast.LENGTH_SHORT).show();
-                        btn_login.setEnabled(false);
-                    } else {
-                        btn_login.setEnabled(true);
-                    }
-                }
-            }
-        });
         et_password.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {

@@ -1,6 +1,7 @@
 package org.sin.legaldemo.LawyerUserUI.LawyerAdapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import org.sin.legaldemo.JavaBean.Task;
 import org.sin.legaldemo.R;
+import org.sin.legaldemo.Util.Utils;
 
 import java.util.List;
 
@@ -33,6 +35,7 @@ public class LawyerTaskAdapter extends ArrayAdapter<Task> {
             viewHolder.title = (TextView) view.findViewById(R.id.tv_task_title);
             viewHolder.type = (TextView) view.findViewById(R.id.tv_task_type);
             viewHolder.content = (TextView) view.findViewById(R.id.tv_task_content);
+            viewHolder.created = (TextView) view.findViewById(R.id.tv_task_created);
             view.setTag(viewHolder);
         }
         else {
@@ -42,6 +45,7 @@ public class LawyerTaskAdapter extends ArrayAdapter<Task> {
         viewHolder.title.setText(temp.getTitle());
         viewHolder.type.setText(temp.getEvent_type());
         viewHolder.content.setText(temp.getShort_content());
+        viewHolder.created.setText(temp.getCreatedAt() + "发布");
         return view;
     }
 }
