@@ -18,11 +18,9 @@ import org.sin.legaldemo.R;
 
 import cn.bmob.v3.listener.SaveListener;
 
-/**
- * Created by Sin on 2016/4/12.
- */
+
 public class LoginFragment extends Fragment {
-    private View view;
+    private View mView;
     private EditText et_username;
     private EditText et_password;
     private Button btn_login;
@@ -33,11 +31,12 @@ public class LoginFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_login,container,false);
+        mView = inflater.inflate(R.layout.fragment_login, container, false);
 
-        btn_login = (Button)view.findViewById(R.id.btn_login);
+        btn_login = (Button) mView.findViewById(R.id.btn_login);
         btn_login.setOnClickListener(new View.OnClickListener() {
-            boolean test ;
+            boolean test;
+
             @Override
             public void onClick(View v) {
                 UserBean user = new UserBean();
@@ -49,7 +48,7 @@ public class LoginFragment extends Fragment {
                     public void onSuccess() {
                         Toast.makeText(getContext(), "登陆成功",
                                 Toast.LENGTH_SHORT).show();
-                        Utils.start_Activity(getActivity(),MainActivity.class);
+                        Utils.start_Activity(getActivity(), MainActivity.class);
                     }
 
                     @Override
@@ -62,12 +61,12 @@ public class LoginFragment extends Fragment {
             }
         });
 
-        et_username = (EditText)view.findViewById(R.id.et_username);
+        et_username = (EditText) mView.findViewById(R.id.et_username);
         et_username.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus){
-                    if (et_username.getText().toString().trim().length() < 4){
+                if (!hasFocus) {
+                    if (et_username.getText().toString().trim().length() < 4) {
                         Toast.makeText(getActivity(), "用户名不能小于4个字符",
                                 Toast.LENGTH_SHORT).show();
                         btn_login.setEnabled(false);
@@ -77,12 +76,12 @@ public class LoginFragment extends Fragment {
                 }
             }
         });
-        et_password = (EditText)view.findViewById(R.id.et_userpwd);
+        et_password = (EditText) mView.findViewById(R.id.et_userpwd);
         et_password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus){
-                    if (et_password.getText().toString().trim().length() < 8){
+                if (!hasFocus) {
+                    if (et_password.getText().toString().trim().length() < 8) {
                         Toast.makeText(getActivity(), "密码不能小于8个字符",
                                 Toast.LENGTH_SHORT).show();
                         btn_login.setEnabled(false);
@@ -94,19 +93,19 @@ public class LoginFragment extends Fragment {
         });
 
 
-        btn_register = (Button)view.findViewById(R.id.btn_register2);
+        btn_register = (Button) mView.findViewById(R.id.btn_register2);
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 registerFragment = new RegisterFragment();
                 FragmentTransaction transaction = getActivity().
                         getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.welcome_fragment_container,registerFragment);
+                transaction.replace(R.id.welcome_fragment_container, registerFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
             }
         });
 
-        return view;
+        return mView;
     }
 }

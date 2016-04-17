@@ -11,26 +11,24 @@ import org.sin.legaldemo.JavaBean.UserBean;
 
 import cn.bmob.v3.Bmob;
 
-/**
- * Created by Sin on 2016/4/13.
- */
+
 public class WelcomeActivity extends FragmentActivity {
-    private WelcomeFragment fragment;
+    private WelcomeFragment mFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        Bmob.initialize(this,"3301002323635c3de86e559312f80d70");
+        Bmob.initialize(this, "3301002323635c3de86e559312f80d70");
 
-        if (UserBean.getCurrentUser(this) != null){
-            Utils.start_Activity(this,MainActivity.class);
+        if (UserBean.getCurrentUser(this) != null) {
+            Utils.start_Activity(this, MainActivity.class);
         }
 
-        fragment = new WelcomeFragment();
+        mFragment = new WelcomeFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.welcome_fragment_container,fragment);
+        transaction.replace(R.id.welcome_fragment_container, mFragment);
         transaction.commit();
     }
 

@@ -15,9 +15,6 @@ import org.sin.legaldemo.Util.Content;
 import org.sin.legaldemo.NormalUserUI.UserAdapter.GridViewAdapter;
 import org.sin.legaldemo.R;
 
-/**
- * Created by Sin on 2016/4/15.
- */
 public class SelectFragment extends Fragment {
     private View mView;
     private GridView mGridView;
@@ -26,10 +23,10 @@ public class SelectFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mView = inflater.inflate(R.layout.fragment_normal_select,container,false);
+        mView = inflater.inflate(R.layout.fragment_normal_select, container, false);
 
-        mGridView = (GridView)mView.findViewById(R.id.gv_select_task);
-        Log.d("Sin","In SelectFragment");
+        mGridView = (GridView) mView.findViewById(R.id.gv_select_task);
+        Log.d("Sin", "In SelectFragment");
         mGridView.setAdapter(new GridViewAdapter(getContext()));
 
         mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -37,18 +34,15 @@ public class SelectFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Bundle bundle = new Bundle();
-                bundle.putString("Task_Type",Content.img_text[position]);
+                bundle.putString("Task_Type", Content.img_text[position]);
                 taskFragment = new TaskFragment();
                 taskFragment.setArguments(bundle);
                 FragmentTransaction fragmentTransaction = getActivity().
                         getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.main_fragment_container,taskFragment);
+                fragmentTransaction.replace(R.id.main_fragment_container, taskFragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
-
                 Content.isTask = true;
-
-
             }
         });
 

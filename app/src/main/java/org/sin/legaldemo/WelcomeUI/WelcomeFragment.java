@@ -11,11 +11,8 @@ import android.widget.Button;
 
 import org.sin.legaldemo.R;
 
-/**
- * Created by Sin on 2016/4/13.
- */
 public class WelcomeFragment extends Fragment {
-    private View view;
+    private View mView;
     private Button btn_login;
     private Button btn_register;
 
@@ -27,24 +24,24 @@ public class WelcomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_welcome,container,false);
+        mView = inflater.inflate(R.layout.fragment_welcome, container, false);
         init();
-        return view;
+        return mView;
     }
 
-    public void init(){
+    public void init() {
         registerFragment = new RegisterFragment();
         loginFragment = new LoginFragment();
 
-        btn_login = (Button)view.findViewById(R.id.btn_welcome_login);
-        btn_register = (Button)view.findViewById(R.id.btn_welcome_register);
+        btn_login = (Button) mView.findViewById(R.id.btn_welcome_login);
+        btn_register = (Button) mView.findViewById(R.id.btn_welcome_register);
 
         transaction = getActivity().getSupportFragmentManager().beginTransaction();
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                transaction.replace(R.id.welcome_fragment_container,loginFragment);
+                transaction.replace(R.id.welcome_fragment_container, loginFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
             }
@@ -53,7 +50,7 @@ public class WelcomeFragment extends Fragment {
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                transaction.replace(R.id.welcome_fragment_container,registerFragment);
+                transaction.replace(R.id.welcome_fragment_container, registerFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
             }

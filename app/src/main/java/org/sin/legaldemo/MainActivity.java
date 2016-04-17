@@ -25,9 +25,6 @@ import cn.bmob.v3.BmobUser;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private TextView tv_username;
-    private UserBean user;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,9 +33,9 @@ public class MainActivity extends AppCompatActivity
         init();
     }
 
-    private void init(){
+    private void init() {
 
-        user = BmobUser.getCurrentUser(getApplicationContext(),UserBean.class);
+        UserBean user = BmobUser.getCurrentUser(getApplicationContext(), UserBean.class);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -61,18 +58,18 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        View headerview  = navigationView.getHeaderView(0);
+        View headerView = navigationView.getHeaderView(0); //为了设置侧边栏的东西才获得的
 
-        tv_username = (TextView)headerview.findViewById(R.id.tv_username);
+        TextView tv_username = (TextView) headerView.findViewById(R.id.tv_username);
         tv_username.setText(user.getNick());
 
-        if (user.isLayer()){
-            Log.d("Sin","is a layer");
-        }else {
-            Log.d("Sin","is not a layer");
+        if (user.isLayer()) {
+            Log.d("Sin", "is a layer");
+        } else {
+            Log.d("Sin", "is not a layer");
             SelectFragment mFragment = new SelectFragment();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.main_fragment_container,mFragment);
+            transaction.replace(R.id.main_fragment_container, mFragment);
             transaction.commit();
         }
 
@@ -88,7 +85,6 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
-
 
 
     @Override
@@ -115,10 +111,10 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        if (Content.isTask){
+        if (Content.isTask) {
             menu.findItem(R.id.main_toolbar_send).setVisible(true);
             menu.findItem(R.id.main_toolbar_settings).setVisible(false);
-        }else{
+        } else {
             menu.findItem(R.id.main_toolbar_send).setVisible(false);
         }
         return super.onPrepareOptionsMenu(menu);
@@ -133,8 +129,8 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_write_off) {
             UserBean.logOut(this);
             UserBean.getCurrentUser(this);
-            Utils.start_Activity(this,WelcomeActivity.class);
-        } else if (id == R.id.nav_gallery) {
+            Utils.start_Activity(this, WelcomeActivity.class);
+        } else if (id == R.id.nav_show_task) {
 
         } else if (id == R.id.nav_slideshow) {
         } else if (id == R.id.nav_manage) {

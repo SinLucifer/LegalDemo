@@ -2,9 +2,6 @@ package org.sin.legaldemo.JavaBean;
 
 import cn.bmob.v3.BmobUser;
 
-/**
- * Created by Sin on 2016/4/12.
- */
 public class UserBean extends BmobUser {
 
     private String nick;
@@ -40,7 +37,7 @@ public class UserBean extends BmobUser {
         this.sex = sex;
     }
 
-    public boolean getSex(){
+    public boolean getSex() {
         return sex;
     }
 

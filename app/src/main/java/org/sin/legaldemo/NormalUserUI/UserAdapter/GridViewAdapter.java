@@ -11,9 +11,6 @@ import android.widget.TextView;
 import org.sin.legaldemo.R;
 import org.sin.legaldemo.Util.Content;
 
-/**
- * Created by Sin on 2016/4/15.
- */
 public class GridViewAdapter extends BaseAdapter {
 
     private Context mContext;
@@ -39,7 +36,7 @@ public class GridViewAdapter extends BaseAdapter {
         return position;
     }
 
-    private final class MyViewHolder{
+    private final class MyViewHolder {
 
         TextView tv_item;
         ImageView iv_item;
@@ -60,19 +57,20 @@ public class GridViewAdapter extends BaseAdapter {
             this.iv_item = iv_item;
         }
     }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         MyViewHolder myViewHolder;
-        if (convertView == null){
+        if (convertView == null) {
             myViewHolder = new MyViewHolder();
             convertView = LayoutInflater.from(mContext).inflate(
-                    R.layout.grid_item,parent,false);
-            myViewHolder.tv_item = (TextView)convertView.findViewById(R.id.tv_item);
-            myViewHolder.iv_item = (ImageView)convertView.findViewById(R.id.iv_item);
+                    R.layout.grid_item, parent, false);
+            myViewHolder.tv_item = (TextView) convertView.findViewById(R.id.tv_item);
+            myViewHolder.iv_item = (ImageView) convertView.findViewById(R.id.iv_item);
 
             convertView.setTag(myViewHolder);
-        }else {
-            myViewHolder =  (MyViewHolder) convertView.getTag();
+        } else {
+            myViewHolder = (MyViewHolder) convertView.getTag();
         }
 
         myViewHolder.tv_item.setText(Content.img_text[position]);

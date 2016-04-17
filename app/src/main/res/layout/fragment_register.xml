@@ -1,155 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <LinearLayout android:layout_width="match_parent"
-        android:layout_height="0dip"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
-
-        <LinearLayout android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dip"
-            android:background="#ffe9e9e9"
-            android:orientation="vertical"
-            android:gravity="center_horizontal">
-            <EditText android:id="@+id/et_username"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dip"
-                android:layout_marginRight="15dip"
-                android:layout_marginTop="40dip"
-                android:layout_gravity="center"
-                android:hint="用户名"
-                android:textColorHint="#ff4c4c4c"
-                />
-
-            <EditText android:id="@+id/et_userpwd"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dip"
-                android:layout_marginRight="15dip"
-                android:layout_marginTop="40dip"
-                android:layout_gravity="center"
-                android:hint="密码"
-                android:textColorHint="#ff4c4c4c"
-                android:password="true"
-                />
-
-            <EditText android:id="@+id/et_nickname"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dip"
-                android:layout_marginRight="15dip"
-                android:layout_marginTop="40dip"
-                android:layout_gravity="center"
-                android:hint="昵称"
-                android:textColorHint="#ff4c4c4c"
-                />
-
-        <TableLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dip"
-            android:layout_marginRight="15dip"
-            android:layout_marginTop="40dip"
-            android:layout_gravity="center">
-            <TableRow>
+            android:layout_margin="15dp"
+            android:background="@color/lg_background"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
-                <TextView
-                    android:layout_marginLeft="5dip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="性别:"
-                    android:textSize="18sp"
-                    android:textColor="#ff4c4c4c"/>
+            <EditText
+                android:id="@+id/et_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="40dp"
+                android:hint="@string/lg_username"
+                android:textColorHint="@color/deep_gray" />
 
-                <RadioGroup
-                    android:layout_marginLeft="40dip"
-                    android:orientation="horizontal"
-                    android:id="@+id/rg_sex"
-                    android:layout_gravity="center">
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/rb_male"
-                        android:text="男"
-                        android:checked="true"
-                        android:textSize="18sp"/>
+            <EditText
+                android:id="@+id/et_userpwd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="40dp"
+                android:hint="@string/lg_password"
+                android:inputType="numberPassword|textPassword"
+                android:textColorHint="@color/deep_gray" />
 
-                    <RadioButton
-                        android:layout_marginLeft="40dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/rb_female"
-                        android:text="女"
-                        android:textSize="18sp"/>
-                </RadioGroup>
-            </TableRow>
-        </TableLayout>
+            <EditText
+                android:id="@+id/et_nickname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="40dp"
+                android:hint="@string/re_nickname"
+                android:textColorHint="@color/deep_gray" />
 
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dip"
-                android:layout_marginRight="15dip"
-                android:layout_marginTop="40dip"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="40dp">
+
                 <TableRow>
 
                     <TextView
-                        android:layout_marginLeft="5dip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="律师账号:"
-                        android:textSize="18sp"
-                        android:textColor="#ff4c4c4c"/>
+                        android:layout_marginLeft="5dp"
+                        android:text="@string/sex"
+                        android:textColor="@color/deep_gray"
+                        android:textSize="18sp" />
 
                     <RadioGroup
-                        android:layout_marginLeft="18dip"
-                        android:orientation="horizontal"
-                        android:id="@+id/rg_is_lawyer"
-                        android:layout_gravity="center">
-                        <RadioButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/rb_lawyer_false"
-                            android:text="否"
-                            android:checked="true"
-                            android:textSize="18sp"/>
+                        android:id="@+id/rg_sex"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="40dp"
+                        android:orientation="horizontal">
 
                         <RadioButton
-                            android:layout_marginLeft="40dp"
+                            android:id="@+id/rb_male"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/rb_lawyer_true"
-                            android:text="是"
-                            android:textSize="18sp"/>
+                            android:checked="true"
+                            android:text="@string/male"
+                            android:textSize="18sp" />
+
+                        <RadioButton
+                            android:id="@+id/rb_female"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="40dp"
+                            android:text="@string/female"
+                            android:textSize="18sp" />
                     </RadioGroup>
                 </TableRow>
             </TableLayout>
 
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="40dp">
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="@string/isLawyer"
+                        android:textColor="@color/deep_gray"
+                        android:textSize="18sp" />
+
+                    <RadioGroup
+                        android:id="@+id/rg_is_lawyer"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="16dp"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/rb_lawyer_false"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:text="@string/no"
+                            android:textSize="18sp" />
+
+                        <RadioButton
+                            android:id="@+id/rb_lawyer_true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="40dp"
+                            android:text="@string/yes"
+                            android:textSize="18sp" />
+                    </RadioGroup>
+                </TableRow>
+            </TableLayout>
         </LinearLayout>
 
-        <LinearLayout android:layout_width="match_parent"
-            android:layout_height="40dip"
-            android:layout_marginTop="10dip"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
             android:gravity="center">
-            <Button android:id="@+id/btn_register"
-                android:layout_width="fill_parent"
-                android:layout_height="40dip"
-                android:layout_marginLeft="15dip"
-                android:layout_marginRight="15dip"
-                android:text="注册"
-                android:textColor="#000000"
+
+            <Button
+                android:id="@+id/btn_register"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
                 android:clickable="true"
-                />
+                android:text="@string/submit"
+                android:textColor="@color/black" />
         </LinearLayout>
-
-
     </LinearLayout>
-
 </LinearLayout>
