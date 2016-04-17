@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,25 +40,7 @@ public class LoginFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-                UserBean user = new UserBean();
-                user.setUsername(et_username.getText().toString().trim());
-                user.setPassword(et_password.getText().toString().trim());
-
-                user.login(getContext(), new SaveListener() {
-                    @Override
-                    public void onSuccess() {
-                        Toast.makeText(getContext(), "登陆成功",
-                                Toast.LENGTH_SHORT).show();
-                        Utils.start_Activity(getActivity(), MainActivity.class);
-                    }
-
-                    @Override
-                    public void onFailure(int i, String s) {
-                        Toast.makeText(getContext(), "登陆失败:" + s,
-                                Toast.LENGTH_SHORT).show();
-                    }
-                });
-
+                login();
             }
         });
 
@@ -91,6 +74,17 @@ public class LoginFragment extends Fragment {
                 }
             }
         });
+        et_password.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == event.ACTION_UP){
+                    if (keyCode == KeyEvent.KEYCODE_ENTER){
+                        login();
+                    }
+                }
+                return false;
+            }
+        });
 
 
         btn_register = (Button) mView.findViewById(R.id.btn_register2);
@@ -107,5 +101,26 @@ public class LoginFragment extends Fragment {
         });
 
         return mView;
+    }
+
+    public void login(){
+        UserBean user = new UserBean();
+        user.setUsername(et_username.getText().toString().trim());
+        user.setPassword(et_password.getText().toString().trim());
+
+        user.login(getContext(), new SaveListener() {
+            @Override
+            public void onSuccess() {
+                Toast.makeText(getContext(), "登陆成功",
+                        Toast.LENGTH_SHORT).show();
+                Utils.start_Activity(getActivity(),MainActivity.class);
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+                Toast.makeText(getContext(), "登陆失败:" + s,
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

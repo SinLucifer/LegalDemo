@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import org.sin.legaldemo.JavaBean.UserBean;
+import org.sin.legaldemo.LawyerUserUI.CheckFragment;
 import org.sin.legaldemo.NormalUserUI.SelectFragment;
 import org.sin.legaldemo.Util.Content;
 import org.sin.legaldemo.Util.Utils;
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
         View headerView = navigationView.getHeaderView(0); //为了设置侧边栏的东西才获得的
 
         TextView tv_username = (TextView) headerView.findViewById(R.id.tv_username);
@@ -65,6 +67,10 @@ public class MainActivity extends AppCompatActivity
 
         if (user.isLayer()) {
             Log.d("Sin", "is a layer");
+            CheckFragment mFragment = new CheckFragment();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.main_fragment_container, mFragment);
+            transaction.commit();
         } else {
             Log.d("Sin", "is not a layer");
             SelectFragment mFragment = new SelectFragment();
@@ -132,13 +138,6 @@ public class MainActivity extends AppCompatActivity
             Utils.start_Activity(this, WelcomeActivity.class);
         } else if (id == R.id.nav_show_task) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        } else if (id == R.id.nav_slideshow) {
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -33,7 +33,7 @@
             android:layout_marginRight="15dip"
             android:layout_marginTop="40dip"
             android:hint="@string/lg_password"
-            android:inputType="numberPassword|textPassword"
+            android:inputType="textPassword"
             android:textColorHint="@color/deep_gray" />
     </LinearLayout>
 
