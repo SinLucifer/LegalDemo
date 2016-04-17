@@ -73,6 +73,7 @@ public class TaskFragment extends Fragment {
             task.setTitle(mTitle.getText().toString().trim());
             task.setShort_content(mContent.getText().toString().trim());
             task.setEvent_type(mType.getText().toString().trim());
+            task.setBook(false);
             task.setTask_publisher(user);
 
             task.save(getContext(), new SaveListener() {

@@ -6,6 +6,7 @@ public class Task extends BmobObject {
     private String title;
     private String event_type;
     private String short_content;
+    private boolean isBook = false;
     private UserBean task_publisher;
     private UserBean lawyer;
 
@@ -48,4 +49,13 @@ public class Task extends BmobObject {
     public void setShort_content(String short_content) {
         this.short_content = short_content;
     }
+
+    public boolean isBook() {
+        return isBook;
+    }
+
+    public void setBook(boolean book) {
+        isBook = book;
+    }
+
 }

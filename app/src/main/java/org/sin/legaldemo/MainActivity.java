@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import org.sin.legaldemo.JavaBean.UserBean;
+import org.sin.legaldemo.LawyerUserUI.CheckFragment;
 import org.sin.legaldemo.NormalUserUI.SelectFragment;
 import org.sin.legaldemo.NormalUserUI.ShowMyTaskFragment;
 import org.sin.legaldemo.Util.Content;
@@ -66,6 +67,10 @@ public class MainActivity extends AppCompatActivity
 
         if (user.isLayer()) {
             Log.d("Sin", "is a layer");
+            CheckFragment mFragment = new CheckFragment();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.main_fragment_container, mFragment);
+            transaction.commit();
         } else {
             Log.d("Sin", "is not a layer");
             SelectFragment mFragment = new SelectFragment();
@@ -86,7 +91,6 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -134,6 +138,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_show_task) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.main_fragment_container,new ShowMyTaskFragment());
+            transaction.addToBackStack(null);
             transaction.commit();
         }
 

@@ -14,9 +14,7 @@ import org.sin.legaldemo.R;
 
 import java.util.List;
 
-/**
- * Created by Sin on 2016/4/17.
- */
+
 public class TaskViewAdapter extends BaseAdapter {
 
     private Context mContext;

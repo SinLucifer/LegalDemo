@@ -22,9 +22,7 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;
 import me.maxwin.view.XListView;
 
-/**
- * Created by Sin on 2016/4/17.
- */
+
 public class ShowMyTaskFragment extends Fragment implements XListView.IXListViewListener {
     private View mView;
     private XListView mListView;
@@ -39,7 +37,7 @@ public class ShowMyTaskFragment extends Fragment implements XListView.IXListView
         mView = inflater.inflate(R.layout.fragment_show_my_task,container,false);
         listview = (ListView) mView.findViewById(R.id.xListView);
         mQuery = new BmobQuery<Task>();
-        mQuery.addWhereEqualTo("task_publisher", UserBean.getCurrentUser(getContext(),UserBean.class));
+        mQuery.addWhereEqualTo("task_publisher",UserBean.getCurrentUser(getContext(),UserBean.class));
         mQuery.order("-updatedAt");
         mQuery.include("task_publisher");
         mQuery.findObjects(getContext(), new FindListener<Task>() {
@@ -52,7 +50,7 @@ public class ShowMyTaskFragment extends Fragment implements XListView.IXListView
 
             @Override
             public void onError(int i, String s) {
-                Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
+                Log.d("Sin",s);
             }
         });
 

@@ -38,7 +38,6 @@ public class LoginFragment extends Fragment {
 
         btn_login = (Button) mView.findViewById(R.id.btn_login);
         btn_login.setOnClickListener(new View.OnClickListener() {
-            boolean test;
 
             @Override
             public void onClick(View v) {
