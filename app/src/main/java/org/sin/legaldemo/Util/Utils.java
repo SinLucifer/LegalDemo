@@ -1,4 +1,4 @@
-package org.sin.legaldemo;
+package org.sin.legaldemo.Util;
 
 import android.app.Activity;
 import android.content.Intent;

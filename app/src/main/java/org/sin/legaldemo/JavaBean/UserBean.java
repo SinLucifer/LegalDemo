@@ -10,6 +10,15 @@ public class UserBean extends BmobUser {
     private String nick;
     private boolean sex;
     private boolean isLayer;
+    private Task mTask;
+
+    public Task getmTask() {
+        return mTask;
+    }
+
+    public void setmTask(Task mTask) {
+        this.mTask = mTask;
+    }
 
     public boolean isLayer() {
         return isLayer;

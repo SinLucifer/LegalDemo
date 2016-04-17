@@ -1,4 +1,4 @@
-package org.sin.legaldemo.NormalUserFragment;
+package org.sin.legaldemo.NormalUserUI;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,9 +11,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
-import org.sin.legaldemo.Content;
-import org.sin.legaldemo.Fragment.TaskFragment;
-import org.sin.legaldemo.GridViewAdapter;
+import org.sin.legaldemo.Util.Content;
+import org.sin.legaldemo.NormalUserUI.UserAdapter.GridViewAdapter;
 import org.sin.legaldemo.R;
 
 /**

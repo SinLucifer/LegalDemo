@@ -1,9 +1,6 @@
 package org.sin.legaldemo;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
@@ -17,10 +14,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import org.sin.legaldemo.Fragment.LoginFragment;
-import org.sin.legaldemo.Fragment.RegisterFragment;
 import org.sin.legaldemo.JavaBean.UserBean;
-import org.sin.legaldemo.NormalUserFragment.SelectFragment;
+import org.sin.legaldemo.NormalUserUI.SelectFragment;
+import org.sin.legaldemo.Util.Content;
+import org.sin.legaldemo.Util.Utils;
+import org.sin.legaldemo.WelcomeUI.WelcomeActivity;
 
 import cn.bmob.v3.BmobUser;
 

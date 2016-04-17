@@ -1,10 +1,12 @@
-package org.sin.legaldemo;
+package org.sin.legaldemo.WelcomeUI;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 
-import org.sin.legaldemo.Fragment.WelcomeFragment;
+import org.sin.legaldemo.MainActivity;
+import org.sin.legaldemo.R;
+import org.sin.legaldemo.Util.Utils;
 import org.sin.legaldemo.JavaBean.UserBean;
 
 import cn.bmob.v3.Bmob;

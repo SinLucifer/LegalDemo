@@ -1,4 +1,4 @@
-package org.sin.legaldemo;
+package org.sin.legaldemo.Util;
 
 /**
  * Created by Sin on 2016/4/15.

@@ -1,4 +1,4 @@
-package org.sin.legaldemo.Fragment;
+package org.sin.legaldemo.WelcomeUI;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import org.sin.legaldemo.JavaBean.UserBean;
-import org.sin.legaldemo.Utils;
+import org.sin.legaldemo.Util.Utils;
 import org.sin.legaldemo.MainActivity;
 import org.sin.legaldemo.R;
 
