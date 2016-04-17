@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import org.sin.legaldemo.JavaBean.UserBean;
 import org.sin.legaldemo.NormalUserUI.SelectFragment;
+import org.sin.legaldemo.NormalUserUI.ShowMyTaskFragment;
 import org.sin.legaldemo.Util.Content;
 import org.sin.legaldemo.Util.Utils;
 import org.sin.legaldemo.WelcomeUI.WelcomeActivity;
@@ -132,13 +133,8 @@ public class MainActivity extends AppCompatActivity
             Utils.start_Activity(this, WelcomeActivity.class);
         } else if (id == R.id.nav_show_task) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        } else if (id == R.id.nav_slideshow) {
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+            transaction.replace(R.id.main_fragment_container,new ShowMyTaskFragment());
+            transaction.commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
