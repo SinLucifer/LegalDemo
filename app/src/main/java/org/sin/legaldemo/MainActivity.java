@@ -20,6 +20,7 @@ import android.widget.TextView;
 import org.sin.legaldemo.Fragment.LoginFragment;
 import org.sin.legaldemo.Fragment.RegisterFragment;
 import org.sin.legaldemo.JavaBean.UserBean;
+import org.sin.legaldemo.LawyerUserFragment.CheckFragment;
 import org.sin.legaldemo.NormalUserFragment.SelectFragment;
 
 import cn.bmob.v3.BmobUser;
@@ -63,13 +64,17 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        View headerview  = navigationView.getHeaderView(0);
+        View headerView  = navigationView.getHeaderView(0);
 
-        tv_username = (TextView)headerview.findViewById(R.id.tv_username);
+        tv_username = (TextView)headerView.findViewById(R.id.tv_username);
         tv_username.setText(user.getNick());
 
         if (user.isLayer()){
             Log.d("Sin","is a layer");
+            CheckFragment mFragment = new CheckFragment();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.main_fragment_container,mFragment);
+            transaction.commit();
         }else {
             Log.d("Sin","is not a layer");
             SelectFragment mFragment = new SelectFragment();

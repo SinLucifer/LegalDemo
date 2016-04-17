@@ -25,6 +25,7 @@
                 android:layout_gravity="center"
                 android:hint="手机/邮箱/用户名"
                 android:textColorHint="#ff4c4c4c"
+                android:singleLine="true"
                 />
 
             <EditText android:id="@+id/et_userpwd"
@@ -37,7 +38,7 @@
                 android:layout_gravity="center"
                 android:hint="密码"
                 android:textColorHint="#ff4c4c4c"
-                android:password="true"
+                android:inputType="textPassword"
                 />
         </LinearLayout>
 
