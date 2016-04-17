@@ -19,6 +19,7 @@ import org.sin.legaldemo.JavaBean.Task;
 import org.sin.legaldemo.JavaBean.UserBean;
 import org.sin.legaldemo.LawyerUserUI.LawyerAdapter.LawyerTaskAdapter;
 import org.sin.legaldemo.R;
+import org.sin.legaldemo.Util.Utils;
 
 import java.util.List;
 
@@ -90,6 +91,7 @@ public class CheckFragment extends Fragment {
     private void init(){
         query = new BmobQuery<Task>();
         query.order("-createdAt");
+        query.include("task_publisher");
         query.findObjects(getContext(), new FindListener<Task>() {
 
             @Override

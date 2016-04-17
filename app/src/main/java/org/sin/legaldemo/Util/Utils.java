@@ -3,6 +3,7 @@ package org.sin.legaldemo.Util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import org.sin.legaldemo.JavaBean.UserBean;
 import org.sin.legaldemo.MainActivity;

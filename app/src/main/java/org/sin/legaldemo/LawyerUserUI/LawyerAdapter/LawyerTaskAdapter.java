@@ -43,7 +43,7 @@ public class LawyerTaskAdapter extends ArrayAdapter<Task> {
             viewHolder =(ViewHolder) view.getTag();
         }
         viewHolder.title.setText(temp.getTitle());
-        viewHolder.type.setText(temp.getEvent_type());
+        viewHolder.type.setText("发布人：" + temp.getTask_publisher().getNick());
         viewHolder.content.setText(temp.getShort_content());
         viewHolder.created.setText(temp.getCreatedAt() + "发布");
         return view;
