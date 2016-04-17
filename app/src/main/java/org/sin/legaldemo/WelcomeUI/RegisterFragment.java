@@ -43,45 +43,26 @@ public class RegisterFragment extends Fragment {
     private void init() {
 
         btn_register = (Button) mView.findViewById(R.id.btn_register);
+        et_username = (EditText) mView.findViewById(R.id.et_username);
+        et_password = (EditText) mView.findViewById(R.id.et_userpwd);
+
+        et_nickname = (EditText) mView.findViewById(R.id.et_nickname);
+
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onRegister();
-            }
-        });
-
-        et_username = (EditText) mView.findViewById(R.id.et_username);
-        et_username.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    if (et_username.getText().toString().trim().length() < 4) {
-                        Toast.makeText(getActivity(), "用户名不能小于4个字符",
-                                Toast.LENGTH_SHORT).show();
-                        btn_register.setEnabled(false);
-                    } else {
-                        btn_register.setEnabled(true);
-                    }
+                if (et_username.getText().toString().trim().length() < 4) {
+                    Toast.makeText(getActivity(), "用户名不能小于4个字符",
+                            Toast.LENGTH_SHORT).show();
+                }else if (et_password.getText().toString().trim().length() < 8) {
+                    Toast.makeText(getActivity(), "密码不能小于8个字符",
+                            Toast.LENGTH_SHORT).show();
+                }else {
+                    onRegister();
                 }
             }
         });
 
-        et_password = (EditText) mView.findViewById(R.id.et_userpwd);
-        et_password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    if (et_password.getText().toString().trim().length() < 8) {
-                        Toast.makeText(getActivity(), "密码不能小于8个字符",
-                                Toast.LENGTH_SHORT).show();
-                        btn_register.setEnabled(false);
-                    } else {
-                        btn_register.setEnabled(true);
-                    }
-                }
-            }
-        });
-        et_nickname = (EditText) mView.findViewById(R.id.et_nickname);
 
         RadioGroup rg_sex = (RadioGroup) mView.findViewById(R.id.rg_sex);
         rg_sex.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
