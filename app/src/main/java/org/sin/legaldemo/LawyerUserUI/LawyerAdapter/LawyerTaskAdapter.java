@@ -1,4 +1,4 @@
-package org.sin.legaldemo;
+package org.sin.legaldemo.LawyerUserUI.LawyerAdapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import org.sin.legaldemo.JavaBean.Task;
+import org.sin.legaldemo.R;
 
 import java.util.List;
 

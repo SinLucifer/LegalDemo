@@ -1,28 +1,24 @@
-package org.sin.legaldemo.LawyerUserFragment;
+package org.sin.legaldemo.LawyerUserUI;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ListView;
 import android.widget.Toast;
 
 
 import org.sin.legaldemo.CustomListView;
 import org.sin.legaldemo.JavaBean.Task;
-import org.sin.legaldemo.LawyerTaskAdapter;
+import org.sin.legaldemo.LawyerUserUI.LawyerAdapter.LawyerTaskAdapter;
 import org.sin.legaldemo.R;
 
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.GetListener;
 
 /**
  * Created by dola321 on 2016/4/17.

@@ -15,11 +15,10 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import org.sin.legaldemo.JavaBean.UserBean;
-import org.sin.legaldemo.LawyerUserFragment.CheckFragment;
+import org.sin.legaldemo.LawyerUserUI.CheckFragment;
 import org.sin.legaldemo.NormalUserUI.SelectFragment;
 import org.sin.legaldemo.Util.Content;
 import org.sin.legaldemo.Util.Utils;
-import org.sin.legaldemo.WelcomeUI.LoginFragment;
 import org.sin.legaldemo.WelcomeUI.WelcomeActivity;
 
 import cn.bmob.v3.BmobUser;
