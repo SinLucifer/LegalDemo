@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import org.sin.legaldemo.JavaBean.Task;
 import org.sin.legaldemo.JavaBean.UserBean;
 import org.sin.legaldemo.LawyerUserUI.LawyerAdapter.LawyerTaskAdapter;
 import org.sin.legaldemo.R;
+import org.sin.legaldemo.Util.Utils;
 
 import java.util.List;
 
@@ -86,6 +88,7 @@ public class CheckFragment extends Fragment {
 
     private void init(){
         query.order("-createdAt");
+        query.include("task_publisher");
         query.findObjects(getContext(), new FindListener<Task>() {
 
             @Override
