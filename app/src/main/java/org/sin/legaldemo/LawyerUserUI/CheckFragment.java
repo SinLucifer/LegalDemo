@@ -43,6 +43,8 @@ public class CheckFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_lawyer_check, container, false);
 
+        query = new BmobQuery<Task>();
+
         listView = (CustomListView) mView.findViewById(R.id.clv);
         listView.setonRefreshListener(new CustomListView.OnRefreshListener() {
             @Override
@@ -83,7 +85,6 @@ public class CheckFragment extends Fragment {
     }
 
     private void init(){
-        query = new BmobQuery<Task>();
         query.order("-createdAt");
         query.findObjects(getContext(), new FindListener<Task>() {
 

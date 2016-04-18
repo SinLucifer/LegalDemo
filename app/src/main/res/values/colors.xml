@@ -8,4 +8,7 @@
     <color name="gray">#C0C0C0</color>
     <color name="deep_gray">#4c4c4c</color>
     <color name="lg_background">#ffe9e9e9</color>
+    <color name="light_grey">#f0f0f0</color>
+    <color name="super_light_grey">#f6f6f6</color>
+    <color name="red">#FF2D2D</color>
 </resources>

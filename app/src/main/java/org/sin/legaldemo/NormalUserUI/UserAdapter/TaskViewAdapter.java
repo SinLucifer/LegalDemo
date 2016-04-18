@@ -5,7 +5,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
+import android.view.animation.Transformation;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,6 +18,8 @@ import org.sin.legaldemo.JavaBean.Task;
 import org.sin.legaldemo.R;
 
 import java.util.List;
+
+import cn.bmob.v3.listener.DeleteListener;
 
 
 public class TaskViewAdapter extends BaseAdapter {
@@ -40,25 +47,117 @@ public class TaskViewAdapter extends BaseAdapter {
         return position;
     }
 
-    private final class MyViewHolder {TextView tv_item;}
+    private final class MyViewHolder {     //item拥有的所有部件
+        private TextView itemTitle;
+        private TextView itemState;
+        private TextView itemType;
+        private TextView itemNick;
+        private TextView itemContent;
+        private Button itemBnMore;
+        private Button itemBnCancel;}
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Task task = (Task) getItem(position);
-        if (task.getTask_publisher() != null){
-            Log.d("Sin",task.getTask_publisher().getNick());
-        }
-        MyViewHolder myViewHolder;
+
+
+        final MyViewHolder myViewHolder;
         if (convertView == null){
             myViewHolder = new MyViewHolder();
             convertView = LayoutInflater.from(mContext).inflate(R.layout.list_item,parent,false);
-            myViewHolder.tv_item = (TextView)convertView.findViewById(R.id.list_item_textview);
+            myViewHolder.itemTitle = (TextView)convertView.findViewById(R.id.list_item_title);
+            myViewHolder.itemState = (TextView)convertView.findViewById(R.id.list_item_state);
+            myViewHolder.itemType = (TextView)convertView.findViewById(R.id.list_item_type);
+            myViewHolder.itemNick = (TextView)convertView.findViewById(R.id.list_item_nick);
+            myViewHolder.itemContent = (TextView)convertView.findViewById(R.id.list_item_content);
+            myViewHolder.itemBnMore = (Button)convertView.findViewById(R.id.list_item_card_more) ;
+            myViewHolder.itemBnCancel = (Button)convertView.findViewById(R.id.list_item_card_cancel) ;
             convertView.setTag(myViewHolder);
         }else {
             myViewHolder = (MyViewHolder) convertView.getTag();
         }
 
-        myViewHolder.tv_item.setText(task.getTitle());
+        if (task.getTask_publisher() != null){
+
+            myViewHolder.itemTitle.setText(task.getTitle());
+            if (task.isBook()){
+                myViewHolder.itemState.setText("已被抢单");
+            }else{
+                myViewHolder.itemState.setText("等待抢单");
+            }
+            myViewHolder.itemType.setText(task.getEvent_type());
+            myViewHolder.itemNick.setText(task.getTask_publisher().getNick());
+            myViewHolder.itemContent.setText(task.getShort_content());
+
+        }
+
+        myViewHolder.itemBnMore.setOnClickListener(new MyTurnListener(myViewHolder.itemContent
+                    ,myViewHolder.itemBnMore));
+        myViewHolder.itemBnCancel.setOnClickListener(new MyDeletedListener(task));
+
         return convertView;
+    }
+
+    private class MyTurnListener implements View.OnClickListener{   //TODO 考虑下小于三行的不能点击的问题，还有动画第一次会卡顿
+
+        public MyTurnListener(TextView textView,Button button) {
+            this.textView = textView;
+            this.button = button;
+        }
+
+        private Button button;
+        private TextView textView;
+        boolean isExpand;
+
+        @Override
+        public void onClick(View v) {
+            textView.clearAnimation();
+            isExpand=!isExpand;
+            final int tempHight;
+            final int startHight= textView.getHeight();
+            int durationMillis = 200;
+            if (isExpand){
+                tempHight = textView.getLineHeight() * textView.getLineCount() - startHight;
+                button.setText(R.string.bn_shrink);
+            }else {
+                tempHight = textView.getLineHeight() * 3 - startHight;//为负值，即短文减去长文的高度差
+                button.setText(R.string.bn_expand);
+            }
+
+            Animation animation = new Animation() {
+                @Override
+                protected void applyTransformation(float interpolatedTime, Transformation t) {
+                    textView.setHeight((int) (startHight + tempHight * interpolatedTime));
+                }
+            };
+
+            animation.setDuration(durationMillis);
+            textView.startAnimation(animation);
+        }
+    }
+
+    private class MyDeletedListener implements View.OnClickListener{
+        private Task task;
+
+        public MyDeletedListener(Task task) {
+            this.task = task;
+        }
+
+        @Override
+        public void onClick(View v) {
+            Task del = new Task();
+            del.setObjectId(task.getObjectId());
+            del.delete(mContext, new DeleteListener() {
+                @Override
+                public void onSuccess() {
+                    Toast.makeText(mContext,"删除成功！请手动刷新！",Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onFailure(int i, String s) {
+                    Toast.makeText(mContext,"删除失败！"+s,Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 }
