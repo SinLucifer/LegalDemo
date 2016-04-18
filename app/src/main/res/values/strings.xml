@@ -42,4 +42,12 @@
     <string name="xlistview_footer_hint_normal">查看更多</string>
     <string name="xlistview_footer_hint_ready">松开载入更多</string>
 
+    <string name="hint_state">状态</string>
+    <string name="hint_nick">昵称</string>
+
+    <!--ListItem-->
+    <string name="bn_expand">展开</string>
+    <string name="bn_shrink">收缩</string>
+    <string name="bn_cancel">取消订单</string>
+
 </resources>

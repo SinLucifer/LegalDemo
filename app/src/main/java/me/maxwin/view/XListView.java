@@ -26,13 +26,23 @@ import org.sin.legaldemo.R;
 
 public class XListView extends ListView implements OnScrollListener {
 
-	private float mLastY = -1; // save event y
+	private final static int SCROLLBACK_HEADER = 0;
+	private final static int SCROLLBACK_FOOTER = 1;
+
+	private final static int SCROLL_DURATION = 400; // scroll back duration
+	private final static int PULL_LOAD_MORE_DELTA = 10; // when pull up >= 50px
+	// at bottom, trigger
+	// load more.
+	private final static float OFFSET_RADIO = 1.8f; // support iOS like pull
+
 	private Scroller mScroller; // used for scroll back
-	private OnScrollListener mScrollListener; // user's scroll listener
 
 	// the interface to trigger refresh and load more.
 	private IXListViewListener mListViewListener;
 
+	private float mLastY = -1; // save event y
+
+	private OnScrollListener mScrollListener; // user's scroll listener
 	// -- header view
 	private XListViewHeader mHeaderView;
 	// header view content, use it to calculate the Header's height. And hide it
@@ -54,15 +64,7 @@ public class XListView extends ListView implements OnScrollListener {
 
 	// for mScroller, scroll back from header or footer.
 	private int mScrollBack;
-	private final static int SCROLLBACK_HEADER = 0;
-	private final static int SCROLLBACK_FOOTER = 1;
 
-	private final static int SCROLL_DURATION = 400; // scroll back duration
-	private final static int PULL_LOAD_MORE_DELTA = 50; // when pull up >= 50px
-														// at bottom, trigger
-														// load more.
-	private final static float OFFSET_RADIO = 1.8f; // support iOS like pull
-													// feature.
 
 	/**
 	 * @param context
@@ -94,10 +96,6 @@ public class XListView extends ListView implements OnScrollListener {
 				.findViewById(R.id.xlistview_header_content);
 		mHeaderTimeView = (TextView) mHeaderView
 				.findViewById(R.id.xlistview_header_time);
-		addHeaderView(mHeaderView);
-
-		// init footer view
-		mFooterView = new XListViewFooter(context);
 
 		// init header height
 		mHeaderView.getViewTreeObserver().addOnGlobalLayoutListener(
@@ -109,6 +107,14 @@ public class XListView extends ListView implements OnScrollListener {
 								.removeGlobalOnLayoutListener(this);
 					}
 				});
+
+
+		addHeaderView(mHeaderView);
+
+		// init footer view
+		mFooterView = new XListViewFooter(context);
+
+
 	}
 
 	@Override
