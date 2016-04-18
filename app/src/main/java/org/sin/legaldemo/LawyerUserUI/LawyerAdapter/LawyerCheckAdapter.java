@@ -3,10 +3,8 @@ package org.sin.legaldemo.LawyerUserUI.LawyerAdapter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
@@ -16,20 +14,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.sin.legaldemo.JavaBean.Task;
+import org.sin.legaldemo.JavaBean.UserBean;
 import org.sin.legaldemo.R;
 
 import java.util.List;
 
-import cn.bmob.v3.listener.DeleteListener;
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.listener.UpdateListener;
 
-
-public class LawyerTaskViewAdapter extends BaseAdapter {
+/**
+ *
+ */
+public class LawyerCheckAdapter extends BaseAdapter {
 
     private Context mContext;
     private List<Task> mList;
 
-    public LawyerTaskViewAdapter(Context mContext, List<Task> mList) {
+    public LawyerCheckAdapter(Context mContext, List<Task> mList) {
         this.mContext = mContext;
         this.mList = mList;
     }
@@ -74,7 +75,7 @@ public class LawyerTaskViewAdapter extends BaseAdapter {
             myViewHolder.itemContent = (TextView)convertView.findViewById(R.id.list_item_content);
             myViewHolder.itemBnMore = (Button)convertView.findViewById(R.id.list_item_card_more) ;
             myViewHolder.itemBnCancel = (Button)convertView.findViewById(R.id.list_item_card_cancel) ;
-            myViewHolder.itemBnCancel.setText("取消抢单");
+            myViewHolder.itemBnCancel.setText("抢单");
             convertView.setTag(myViewHolder);
         }else {
             myViewHolder = (MyViewHolder) convertView.getTag();
@@ -91,13 +92,13 @@ public class LawyerTaskViewAdapter extends BaseAdapter {
         }
 
         myViewHolder.itemBnMore.setOnClickListener(new MyTurnListener(myViewHolder.itemContent
-                    ,myViewHolder.itemBnMore));
-        myViewHolder.itemBnCancel.setOnClickListener(new MyCancelListener(task));
+                ,myViewHolder.itemBnMore));
+        myViewHolder.itemBnCancel.setOnClickListener(new MyOrderListener(task));
 
         return convertView;
     }
 
-    private class MyTurnListener implements OnClickListener{   //TODO 考虑下小于三行的不能点击的问题，还有动画第一次会卡顿
+    private class MyTurnListener implements View.OnClickListener {   //TODO 考虑下小于三行的不能点击的问题，还有动画第一次会卡顿
 
         public MyTurnListener(TextView textView,Button button) {
             this.textView = textView;
@@ -135,56 +136,42 @@ public class LawyerTaskViewAdapter extends BaseAdapter {
         }
     }
 
-    private class MyCancelListener implements OnClickListener{
+    private class MyOrderListener implements View.OnClickListener {
         private Task task;
 
-        public MyCancelListener(Task task) {
+        public MyOrderListener(Task task) {
             this.task = task;
         }
 
         @Override
         public void onClick(View v) {
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);        //弹框确认
+            if (task.isBook()){
+                AlertDialog.Builder tooLate = new AlertDialog.Builder(mContext);
+                tooLate.setMessage("该单以被抢");
+                tooLate.setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                tooLate.create().show();
+            }else {
+                task.setBook(true);
+                String objectID = task.getObjectId();
+                task.setLawyer(BmobUser.getCurrentUser(mContext, UserBean.class));
+                task.update(mContext, objectID , new UpdateListener() {
+                    @Override
+                    public void onSuccess() {
+                        Toast.makeText(mContext, "抢单成功", Toast.LENGTH_SHORT).show();
+                    }
 
-            builder.setMessage("确定取消订单吗");
-
-            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-
-                    dialog.dismiss();
-
-                    task.setBook(false);
-                    task.remove("lawyer");
-                    task.update(mContext, task.getObjectId(), new UpdateListener() {
-                        @Override
-                        public void onSuccess() {
-                            Toast.makeText(mContext, "取消成功", Toast.LENGTH_SHORT).show();
-                        }
-
-                        @Override
-                        public void onFailure(int i, String s) {
-                            Toast.makeText(mContext, "取消失败", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-            });
-
-            builder.setNegativeButton("否", new DialogInterface.OnClickListener() {
-
-                @Override
-
-                public void onClick(DialogInterface dialog, int which) {
-
-                    dialog.dismiss();
-
-                }
-
-            });
-
-            builder.create().show();
+                    @Override
+                    public void onFailure(int i, String s) {
+                        Toast.makeText(mContext, "抢单失败，请稍后重试" + s, Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
 
         }
     }

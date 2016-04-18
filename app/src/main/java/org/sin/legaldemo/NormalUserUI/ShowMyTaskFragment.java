@@ -62,7 +62,6 @@ public class ShowMyTaskFragment extends Fragment implements XListView.IXListView
             mQuery.addWhereEqualTo("task_publisher", user);
         }else {
             mQuery.addWhereEqualTo("lawyer", user);
-            mQuery.addWhereEqualTo("isBook", true);
         }
         mQuery.order("-updatedAt");
         mQuery.include("task_publisher");
