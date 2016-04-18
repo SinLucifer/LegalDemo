@@ -8,15 +8,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import org.sin.legaldemo.JavaBean.Task;
 import org.sin.legaldemo.JavaBean.UserBean;
+import org.sin.legaldemo.LawyerUserUI.LawyerAdapter.LawyerTaskViewAdapter;
 import org.sin.legaldemo.NormalUserUI.UserAdapter.TaskViewAdapter;
 import org.sin.legaldemo.R;
 
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Handler;
 
@@ -29,8 +32,10 @@ public class ShowMyTaskFragment extends Fragment implements XListView.IXListView
     private View mView;
     private XListView mListView;
     private BmobQuery<Task> mQuery;
-    private TaskViewAdapter taskViewAdapter;
+    private BaseAdapter viewAdapter;
     private android.os.Handler mHandler;
+
+    private UserBean user;
 
     @Nullable
     @Override
@@ -52,14 +57,24 @@ public class ShowMyTaskFragment extends Fragment implements XListView.IXListView
     }
 
     private void initTask(){
-        mQuery.addWhereEqualTo("task_publisher",UserBean.getCurrentUser(getContext(),UserBean.class));
+        user = UserBean.getCurrentUser(getContext(),UserBean.class);
+        if (!user.isLayer()){
+            mQuery.addWhereEqualTo("task_publisher", user);
+        }else {
+            mQuery.addWhereEqualTo("lawyer", user);
+            mQuery.addWhereEqualTo("isBook", true);
+        }
         mQuery.order("-updatedAt");
         mQuery.include("task_publisher");
         mQuery.findObjects(getContext(), new FindListener<Task>() {
             @Override
             public void onSuccess(List<Task> list) {
-                taskViewAdapter = new TaskViewAdapter(getContext(),list);
-                mListView.setAdapter(taskViewAdapter);  //获取成功后才设置adapter
+                if (!user.isLayer()) {
+                    viewAdapter = new TaskViewAdapter(getContext(), list);
+                }else{
+                    viewAdapter = new LawyerTaskViewAdapter(getContext(), list);
+                }
+                mListView.setAdapter(viewAdapter);  //获取成功后才设置adapter
             }
 
             @Override
@@ -72,7 +87,7 @@ public class ShowMyTaskFragment extends Fragment implements XListView.IXListView
     private void onLoad() {    //TODO   想办法弄成具体时间
         mListView.stopRefresh();
         mListView.stopLoadMore();
-        mListView.setRefreshTime("刚刚");
+        mListView.setRefreshTime("最近更新:" + new Date().toLocaleString());
     }
 
     @Override
@@ -92,9 +107,10 @@ public class ShowMyTaskFragment extends Fragment implements XListView.IXListView
             @Override
             public void run() {
                 initTask();
-                taskViewAdapter.notifyDataSetChanged();
+                viewAdapter.notifyDataSetChanged();
                 onLoad();
             }
         }, 2000);
     }
+
 }

@@ -1,13 +1,12 @@
-package org.sin.legaldemo.NormalUserUI.UserAdapter;
+package org.sin.legaldemo.LawyerUserUI.LawyerAdapter;
 
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
-import android.view.animation.RotateAnimation;
 import android.view.animation.Transformation;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -20,14 +19,15 @@ import org.sin.legaldemo.R;
 import java.util.List;
 
 import cn.bmob.v3.listener.DeleteListener;
+import cn.bmob.v3.listener.UpdateListener;
 
 
-public class TaskViewAdapter extends BaseAdapter {
+public class LawyerTaskViewAdapter extends BaseAdapter {
 
     private Context mContext;
     private List<Task> mList;
 
-    public TaskViewAdapter(Context mContext, List<Task> mList) {
+    public LawyerTaskViewAdapter(Context mContext, List<Task> mList) {
         this.mContext = mContext;
         this.mList = mList;
     }
@@ -72,6 +72,7 @@ public class TaskViewAdapter extends BaseAdapter {
             myViewHolder.itemContent = (TextView)convertView.findViewById(R.id.list_item_content);
             myViewHolder.itemBnMore = (Button)convertView.findViewById(R.id.list_item_card_more) ;
             myViewHolder.itemBnCancel = (Button)convertView.findViewById(R.id.list_item_card_cancel) ;
+            myViewHolder.itemBnCancel.setText("取消抢单");
             convertView.setTag(myViewHolder);
         }else {
             myViewHolder = (MyViewHolder) convertView.getTag();
@@ -80,11 +81,7 @@ public class TaskViewAdapter extends BaseAdapter {
         if (task.getTask_publisher() != null){
 
             myViewHolder.itemTitle.setText(task.getTitle());
-            if (task.isBook()){
-                myViewHolder.itemState.setText("已被抢单");
-            }else{
-                myViewHolder.itemState.setText("等待抢单");
-            }
+            myViewHolder.itemState.setText("订单");
             myViewHolder.itemType.setText(task.getEvent_type());
             myViewHolder.itemNick.setText("发布人" + task.getTask_publisher().getNick());
             myViewHolder.itemContent.setText(task.getShort_content());
@@ -93,12 +90,12 @@ public class TaskViewAdapter extends BaseAdapter {
 
         myViewHolder.itemBnMore.setOnClickListener(new MyTurnListener(myViewHolder.itemContent
                     ,myViewHolder.itemBnMore));
-        myViewHolder.itemBnCancel.setOnClickListener(new MyDeletedListener(task));
+        myViewHolder.itemBnCancel.setOnClickListener(new MyCancelListener(task));
 
         return convertView;
     }
 
-    private class MyTurnListener implements View.OnClickListener{   //TODO 考虑下小于三行的不能点击的问题，还有动画第一次会卡顿
+    private class MyTurnListener implements OnClickListener{   //TODO 考虑下小于三行的不能点击的问题，还有动画第一次会卡顿
 
         public MyTurnListener(TextView textView,Button button) {
             this.textView = textView;
@@ -136,26 +133,26 @@ public class TaskViewAdapter extends BaseAdapter {
         }
     }
 
-    private class MyDeletedListener implements View.OnClickListener{
+    private class MyCancelListener implements OnClickListener{
         private Task task;
 
-        public MyDeletedListener(Task task) {
+        public MyCancelListener(Task task) {
             this.task = task;
         }
 
         @Override
         public void onClick(View v) {
-            Task del = new Task();
-            del.setObjectId(task.getObjectId());
-            del.delete(mContext, new DeleteListener() {
+            task.setBook(false);
+            task.setLawyer(null);
+            task.update(mContext, task.getObjectId(), new UpdateListener() {
                 @Override
                 public void onSuccess() {
-                    Toast.makeText(mContext,"删除成功！请手动刷新！",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "退单成功", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 public void onFailure(int i, String s) {
-                    Toast.makeText(mContext,"删除失败！"+s,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "退单失败", Toast.LENGTH_SHORT).show();
                 }
             });
         }

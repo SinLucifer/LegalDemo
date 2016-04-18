@@ -27,6 +27,11 @@ import cn.bmob.v3.BmobUser;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static int MYTASKISEXIST = 0;               //订单碎片存在判断
+
+    private ShowMyTaskFragment showMyTaskFragment;
+    private UserBean user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,8 +42,8 @@ public class MainActivity extends AppCompatActivity
 
     private void init() {
 
-        UserBean user = BmobUser.getCurrentUser(getApplicationContext(), UserBean.class);
 
+        user = BmobUser.getCurrentUser(getApplicationContext(), UserBean.class);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -87,6 +92,9 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
+        }else if(MYTASKISEXIST == 1){
+            MYTASKISEXIST = 0;
+            super.onBackPressed();
         } else {
             super.onBackPressed();
         }
@@ -132,14 +140,19 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_write_off) {
+            MYTASKISEXIST = 0;
             UserBean.logOut(this);
             UserBean.getCurrentUser(this);
             Utils.start_Activity(this, WelcomeActivity.class);
         } else if (id == R.id.nav_show_task) {
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.main_fragment_container,new ShowMyTaskFragment());
-            transaction.addToBackStack(null);
-            transaction.commit();
+            if (MYTASKISEXIST == 0) {
+                MYTASKISEXIST = 1;
+                showMyTaskFragment = new ShowMyTaskFragment();
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.main_fragment_container, showMyTaskFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
