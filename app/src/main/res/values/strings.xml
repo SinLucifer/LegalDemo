@@ -24,11 +24,12 @@
     <string name="lg_forget">忘记密码</string>
 
     <!--register-->
-    <string name="re_nickname">昵称</string>
+
     <string name="sex">性别:</string>
     <string name="isLawyer">是否律师:</string>
     <string name="yes">是</string>
-
+    <string name="phone">电话号码</string>
+    <string name="email">邮箱</string>
     <string name="no">否</string>
     <string name="male">男</string>
     <string name="female">女</string>
@@ -45,7 +46,6 @@
     <string name="xlistview_footer_hint_ready">松开载入更多</string>
 
     <string name="hint_state">状态</string>
-    <string name="hint_nick">昵称</string>
 
     <!--ListItem-->
     <string name="bn_expand">展开</string>

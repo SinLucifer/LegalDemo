@@ -22,8 +22,10 @@ public class RegisterFragment extends Fragment {
     private View mView;
     private EditText et_username;
     private EditText et_password;
-    private EditText et_nickname;
-    private Button btn_register;
+    private EditText et_email;
+    private EditText et_phone;
+    private EditText et_first_name;
+    private EditText et_last_name;
 
     private UserBean user;
     private boolean user_sex = true;
@@ -42,11 +44,14 @@ public class RegisterFragment extends Fragment {
 
     private void init() {
 
-        btn_register = (Button) mView.findViewById(R.id.btn_register);
+        Button btn_register = (Button) mView.findViewById(R.id.btn_register);
         et_username = (EditText) mView.findViewById(R.id.et_username);
         et_password = (EditText) mView.findViewById(R.id.et_userpwd);
 
-        et_nickname = (EditText) mView.findViewById(R.id.et_nickname);
+        et_email = (EditText) mView.findViewById(R.id.et_email);
+        et_first_name = (EditText) mView.findViewById(R.id.et_firstname);
+        et_last_name = (EditText) mView.findViewById(R.id.et_lastname);
+        et_phone = (EditText) mView.findViewById(R.id.et_telephone);
 
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,10 +59,15 @@ public class RegisterFragment extends Fragment {
                 if (et_username.getText().toString().trim().length() < 4) {
                     Toast.makeText(getActivity(), "用户名不能小于4个字符",
                             Toast.LENGTH_SHORT).show();
-                }else if (et_password.getText().toString().trim().length() < 8) {
+                } else if (et_password.getText().toString().trim().length() < 8) {
                     Toast.makeText(getActivity(), "密码不能小于8个字符",
                             Toast.LENGTH_SHORT).show();
-                }else {
+                } else if (et_first_name.getText().toString().trim().length() == 0 ||
+                        et_last_name.getText().toString().trim().length() == 0) {
+                    Utils.mToast("为了能够正常使用本软件,请务必输入您的真实姓名");
+                } else if (et_phone.getText().toString().trim().length() != 11) {
+                    Utils.mToast("电话号码输入有误，请检查位数");
+                } else {
                     onRegister();
                 }
             }
@@ -87,9 +97,12 @@ public class RegisterFragment extends Fragment {
         user = new UserBean();
         user.setUsername(et_username.getText().toString().trim());
         user.setPassword(et_password.getText().toString().trim());
-        user.setNick(et_nickname.getText().toString().trim());
+        user.setEmail(et_email.getText().toString().trim());
         user.setSex(user_sex);
         user.setIsLayer(user_isLawyer);
+        user.setFirstName(et_first_name.getText().toString().trim());
+        user.setLastName(et_last_name.getText().toString().trim());
+        user.setMobilePhoneNumber(et_phone.getText().toString().trim());
 
         user.signUp(getActivity(), new SaveListener() {
             @Override

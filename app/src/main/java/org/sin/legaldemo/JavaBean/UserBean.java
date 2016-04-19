@@ -4,7 +4,6 @@ import cn.bmob.v3.BmobUser;
 
 public class UserBean extends BmobUser {
 
-    private String nick;
     private boolean sex;
     private boolean isLayer;
     private String firstName;
@@ -32,14 +31,6 @@ public class UserBean extends BmobUser {
 
     public void setIsLayer(boolean isLayer) {
         this.isLayer = isLayer;
-    }
-
-    public String getNick() {
-        return nick;
-    }
-
-    public void setNick(String nick) {
-        this.nick = nick;
     }
 
     public void setSex(boolean sex) {

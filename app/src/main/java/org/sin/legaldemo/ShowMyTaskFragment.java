@@ -15,6 +15,7 @@ import org.sin.legaldemo.JavaBean.UserBean;
 import org.sin.legaldemo.LawyerUserUI.LawyerAdapter.LawyerTaskViewAdapter;
 import org.sin.legaldemo.NormalUserUI.UserAdapter.TaskViewAdapter;
 import org.sin.legaldemo.R;
+import org.sin.legaldemo.Util.MyApplication;
 
 import java.util.Date;
 import java.util.List;
@@ -55,7 +56,7 @@ public class ShowMyTaskFragment extends Fragment implements XListView.IXListView
     }
 
     private void initTask(){
-        user = UserBean.getCurrentUser(getContext(),UserBean.class);
+        user = UserBean.getCurrentUser(MyApplication.getContext(),UserBean.class);
         if (!user.isLayer()){
             mQuery.addWhereEqualTo("task_publisher", user);
             mQuery.include("lawyer");

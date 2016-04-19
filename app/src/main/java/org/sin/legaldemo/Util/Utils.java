@@ -20,8 +20,8 @@ public class Utils {
         activity.finish();
     }
 
-    public static void mToast(Context context,String text){
-        Toast.makeText(context,text,Toast.LENGTH_SHORT).show();
+    public static void mToast(String text){
+        Toast.makeText(MyApplication.getContext(),text,Toast.LENGTH_SHORT).show();
     }
 
 }
