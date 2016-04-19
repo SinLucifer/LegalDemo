@@ -30,7 +30,7 @@ public class LawyerTaskViewAdapter extends BaseAdapter {
     private List<Task> mList;
     private final OnClickListener itemButtonClickListener;
 
-    public LawyerTaskViewAdapter(Context mContext, List<Task> mList,OnClickListener itemButtonClickListener) {
+    public LawyerTaskViewAdapter(Context mContext, List<Task> mList, OnClickListener itemButtonClickListener) {
         this.mContext = mContext;
         this.mList = mList;
         this.itemButtonClickListener = itemButtonClickListener;
@@ -58,7 +58,8 @@ public class LawyerTaskViewAdapter extends BaseAdapter {
         private TextView itemUsername;
         private TextView itemContent;
         private Button itemBnMore;
-        private Button itemBnCancel;}
+        private Button itemBnCancel;
+    }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -66,34 +67,37 @@ public class LawyerTaskViewAdapter extends BaseAdapter {
 
 
         final MyViewHolder myViewHolder;
-        if (convertView == null){
+        if (convertView == null) {
             myViewHolder = new MyViewHolder();
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.list_item,parent,false);
-            myViewHolder.itemTitle = (TextView)convertView.findViewById(R.id.list_item_title);
-            myViewHolder.itemState = (TextView)convertView.findViewById(R.id.list_item_state);
-            myViewHolder.itemType = (TextView)convertView.findViewById(R.id.list_item_type);
-            myViewHolder.itemUsername = (TextView)convertView.findViewById(R.id.list_item_username);
-            myViewHolder.itemContent = (TextView)convertView.findViewById(R.id.list_item_content);
-            myViewHolder.itemBnMore = (Button)convertView.findViewById(R.id.list_item_card_more) ;
-            myViewHolder.itemBnCancel = (Button)convertView.findViewById(R.id.list_item_card_cancel) ;
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.list_item, parent, false);
+            myViewHolder.itemTitle = (TextView) convertView.findViewById(R.id.list_item_title);
+            myViewHolder.itemState = (TextView) convertView.findViewById(R.id.list_item_state);
+            myViewHolder.itemType = (TextView) convertView.findViewById(R.id.list_item_type);
+            myViewHolder.itemUsername = (TextView) convertView.findViewById(R.id.list_item_username);
+            myViewHolder.itemContent = (TextView) convertView.findViewById(R.id.list_item_content);
+            myViewHolder.itemBnMore = (Button) convertView.findViewById(R.id.list_item_card_more);
+            myViewHolder.itemBnCancel = (Button) convertView.findViewById(R.id.list_item_card_cancel);
             myViewHolder.itemBnCancel.setText("取消抢单");
             convertView.setTag(myViewHolder);
-        }else {
+
+        } else {
             myViewHolder = (MyViewHolder) convertView.getTag();
         }
 
-        if (task.getTask_publisher() != null){
+        if (task.getTask_publisher() != null) {
 
             myViewHolder.itemTitle.setText(task.getTitle());
             myViewHolder.itemState.setText("订单");
             myViewHolder.itemType.setText(task.getEvent_type());
+
             myViewHolder.itemUsername.setText("发布人: " + task.getTask_publisher().getUsername());
             myViewHolder.itemContent.setText(task.getShort_content());
 
         }
 
         myViewHolder.itemBnMore.setOnClickListener(new MyTurnListener(myViewHolder.itemContent
-                    ,myViewHolder.itemBnMore));
+                , myViewHolder.itemBnMore));
+
         if (itemButtonClickListener != null) {
             myViewHolder.itemBnCancel.setOnClickListener(itemButtonClickListener);
         }
@@ -101,9 +105,9 @@ public class LawyerTaskViewAdapter extends BaseAdapter {
         return convertView;
     }
 
-    private class MyTurnListener implements OnClickListener{   //TODO 考虑下小于三行的不能点击的问题，还有动画第一次会卡顿
+    private class MyTurnListener implements OnClickListener {   //TODO 考虑下小于三行的不能点击的问题，还有动画第一次会卡顿
 
-        public MyTurnListener(TextView textView,Button button) {
+        public MyTurnListener(TextView textView, Button button) {
             this.textView = textView;
             this.button = button;
         }
@@ -115,14 +119,14 @@ public class LawyerTaskViewAdapter extends BaseAdapter {
         @Override
         public void onClick(View v) {
             textView.clearAnimation();
-            isExpand=!isExpand;
+            isExpand = !isExpand;
             final int tempHight;
-            final int startHight= textView.getHeight();
+            final int startHight = textView.getHeight();
             int durationMillis = 200;
-            if (isExpand){
+            if (isExpand) {
                 tempHight = textView.getLineHeight() * textView.getLineCount() - startHight;
                 button.setText(R.string.bn_shrink);
-            }else {
+            } else {
                 tempHight = textView.getLineHeight() * 3 - startHight;//为负值，即短文减去长文的高度差
                 button.setText(R.string.bn_expand);
             }
@@ -138,59 +142,4 @@ public class LawyerTaskViewAdapter extends BaseAdapter {
             textView.startAnimation(animation);
         }
     }
-
-    private class MyCancelListener implements OnClickListener{
-        private Task task;
-
-        public MyCancelListener(Task task) {
-            this.task = task;
-        }
-
-        @Override
-        public void onClick(View v) {
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);        //弹框确认
-
-            builder.setMessage("确定取消订单吗");
-
-            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-
-                    dialog.dismiss();
-
-                    task.setBook(false);
-                    task.remove("lawyer");
-                    task.update(mContext, task.getObjectId(), new UpdateListener() {
-                        @Override
-                        public void onSuccess() {
-                            Toast.makeText(mContext, "取消成功", Toast.LENGTH_SHORT).show();
-                        }
-
-                        @Override
-                        public void onFailure(int i, String s) {
-                            Toast.makeText(mContext, "取消失败", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-            });
-
-            builder.setNegativeButton("否", new DialogInterface.OnClickListener() {
-
-                @Override
-
-                public void onClick(DialogInterface dialog, int which) {
-
-                    dialog.dismiss();
-
-                }
-
-            });
-
-            builder.create().show();
-
-        }
-    }
-
 }

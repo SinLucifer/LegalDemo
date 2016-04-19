@@ -52,4 +52,7 @@
     <string name="bn_shrink">收缩</string>
     <string name="bn_cancel">取消订单</string>
 
+    <!--dialog-->
+    <string name="ok">确定</string>
+
 </resources>
