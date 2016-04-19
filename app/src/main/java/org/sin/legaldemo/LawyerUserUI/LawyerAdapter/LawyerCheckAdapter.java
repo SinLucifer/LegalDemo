@@ -169,8 +169,7 @@ public class LawyerCheckAdapter extends BaseAdapter {
                 task.update(mContext, objectID , new UpdateListener() {
                     @Override
                     public void onSuccess() {
-                        Utils.mToast("抢单成功");
-                        DetailDialog detailDialog = DetailDialog.newInstance(task.getTitle(),task.getShort_content());
+                        DetailDialog detailDialog = DetailDialog.newInstance(task);
                         detailDialog.show(activity.getSupportFragmentManager(), "DetailDialog");
                     }
 

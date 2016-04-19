@@ -10,7 +10,11 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
+import junit.framework.Test;
+
+import org.sin.legaldemo.JavaBean.Task;
 import org.sin.legaldemo.R;
+import org.w3c.dom.Text;
 
 
 /**
@@ -18,17 +22,18 @@ import org.sin.legaldemo.R;
  */
 public class DetailDialog extends DialogFragment {
 
-    private String title;
-    private String content;
+    private Task task;
 
     private TextView tvTitle;
+    private TextView tvState;
+    private TextView tvType;
+    private TextView tvUsername;
     private TextView tvContent;
     private Button tvOk;
 
-    public static DetailDialog newInstance(String title, String content) {
+    public static DetailDialog newInstance(Task task) {
         Bundle args = new Bundle();
-        args.putString("title",title);
-        args.putString("short_content", content);
+        args.putSerializable("task", task);
         DetailDialog fragment = new DetailDialog();
         fragment.setArguments(args);
         return fragment;
@@ -40,18 +45,23 @@ public class DetailDialog extends DialogFragment {
                              Bundle savedInstanceState)
     {
         if (getArguments() != null){
-            title = getArguments().getString("title");
-            content = getArguments().getString("short_content");
+            task = (Task) getArguments().getSerializable("task");
         }
         View view = inflater.inflate(R.layout.dialog_detail, container);
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         tvTitle = (TextView) view.findViewById(R.id.dialog_title);
+        tvState = (TextView) view.findViewById(R.id.dialog_state);
+        tvType = (TextView) view.findViewById(R.id.dialog_type);
+        tvUsername = (TextView) view.findViewById(R.id.dialog_username);
         tvContent = (TextView) view.findViewById(R.id.dialog_content);
         tvOk = (Button) view.findViewById(R.id.dialog_ok);
 
-        tvTitle.setText(title);
-        tvContent.setText(content);
+        tvTitle.setText(task.getTitle());
+        tvState.setText("抢单成功");
+        tvType.setText(task.getEvent_type());
+        tvUsername.setText("发布人：" + task.getTask_publisher().getUsername());
+        tvContent.setText(task.getShort_content());
         tvOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
