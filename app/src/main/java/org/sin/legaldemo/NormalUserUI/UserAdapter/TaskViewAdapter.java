@@ -26,10 +26,12 @@ public class TaskViewAdapter extends BaseAdapter {
 
     private Context mContext;
     private List<Task> mList;
+    private final OnClickListener itemButtonClickListener;
 
-    public TaskViewAdapter(Context mContext, List<Task> mList) {
+    public TaskViewAdapter(Context mContext, List<Task> mList,OnClickListener itemButtonClickListener) {
         this.mContext = mContext;
         this.mList = mList;
+        this.itemButtonClickListener = itemButtonClickListener;
     }
 
     @Override
@@ -77,24 +79,22 @@ public class TaskViewAdapter extends BaseAdapter {
             myViewHolder = (MyViewHolder) convertView.getTag();
         }
 
-        if (task.getTask_publisher() != null){
-
-            myViewHolder.itemTitle.setText(task.getTitle());
-            if (task.isBook()){
-                myViewHolder.itemState.setText("已被抢单");
-            }else{
-                myViewHolder.itemState.setText("等待抢单");
-            }
-            myViewHolder.itemType.setText(task.getEvent_type());
-            myViewHolder.itemNick.setText("发布人" + task.getTask_publisher().getNick());
-            myViewHolder.itemContent.setText(task.getShort_content());
-
+        myViewHolder.itemTitle.setText(task.getTitle());
+        if (task.isBook()){
+            myViewHolder.itemState.setText("已被抢单");
+            myViewHolder.itemNick.setText("抢单律师" + task.getLawyer().getNick());
+        }else{
+            myViewHolder.itemState.setText("等待抢单");
+            myViewHolder.itemNick.setText("无");
         }
+        myViewHolder.itemType.setText(task.getEvent_type());
+        myViewHolder.itemContent.setText(task.getShort_content());
 
         myViewHolder.itemBnMore.setOnClickListener(new MyTurnListener(myViewHolder.itemContent
                     ,myViewHolder.itemBnMore));
-        myViewHolder.itemBnCancel.setOnClickListener(new MyDeletedListener(task));
-
+        if (itemButtonClickListener != null) {
+            myViewHolder.itemBnCancel.setOnClickListener(itemButtonClickListener);
+        }
         return convertView;
     }
 
@@ -133,31 +133,6 @@ public class TaskViewAdapter extends BaseAdapter {
 
             animation.setDuration(durationMillis);
             textView.startAnimation(animation);
-        }
-    }
-
-    private class MyDeletedListener implements View.OnClickListener{
-        private Task task;
-
-        public MyDeletedListener(Task task) {
-            this.task = task;
-        }
-
-        @Override
-        public void onClick(View v) {
-            Task del = new Task();
-            del.setObjectId(task.getObjectId());
-            del.delete(mContext, new DeleteListener() {
-                @Override
-                public void onSuccess() {
-                    Toast.makeText(mContext,"删除成功！请手动刷新！",Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onFailure(int i, String s) {
-                    Toast.makeText(mContext,"删除失败！"+s,Toast.LENGTH_SHORT).show();
-                }
-            });
         }
     }
 }

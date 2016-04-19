@@ -18,7 +18,7 @@ import org.sin.legaldemo.R;
 public class SelectFragment extends Fragment {
     private View mView;
     private GridView mGridView;
-    private TaskFragment taskFragment;
+    private TaskPublishFragment taskPublishFragment;
 
     @Nullable
     @Override
@@ -35,11 +35,11 @@ public class SelectFragment extends Fragment {
 
                 Bundle bundle = new Bundle();
                 bundle.putString("Task_Type", Content.img_text[position]);
-                taskFragment = new TaskFragment();
-                taskFragment.setArguments(bundle);
+                taskPublishFragment = new TaskPublishFragment();
+                taskPublishFragment.setArguments(bundle);
                 FragmentTransaction fragmentTransaction = getActivity().
                         getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.main_fragment_container, taskFragment);
+                fragmentTransaction.replace(R.id.main_fragment_container, taskPublishFragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
                 Content.isTask = true;

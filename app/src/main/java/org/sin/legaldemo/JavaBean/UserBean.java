@@ -7,14 +7,23 @@ public class UserBean extends BmobUser {
     private String nick;
     private boolean sex;
     private boolean isLayer;
-    private Task mTask;
+    private String firstName;
+    private String lastName;
 
-    public Task getmTask() {
-        return mTask;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setmTask(Task mTask) {
-        this.mTask = mTask;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public boolean isLayer() {

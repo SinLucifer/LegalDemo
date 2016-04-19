@@ -28,10 +28,12 @@ public class LawyerTaskViewAdapter extends BaseAdapter {
 
     private Context mContext;
     private List<Task> mList;
+    private final OnClickListener itemButtonClickListener;
 
-    public LawyerTaskViewAdapter(Context mContext, List<Task> mList) {
+    public LawyerTaskViewAdapter(Context mContext, List<Task> mList,OnClickListener itemButtonClickListener) {
         this.mContext = mContext;
         this.mList = mList;
+        this.itemButtonClickListener = itemButtonClickListener;
     }
 
     @Override
@@ -92,7 +94,9 @@ public class LawyerTaskViewAdapter extends BaseAdapter {
 
         myViewHolder.itemBnMore.setOnClickListener(new MyTurnListener(myViewHolder.itemContent
                     ,myViewHolder.itemBnMore));
-        myViewHolder.itemBnCancel.setOnClickListener(new MyCancelListener(task));
+        if (itemButtonClickListener != null) {
+            myViewHolder.itemBnCancel.setOnClickListener(itemButtonClickListener);
+        }
 
         return convertView;
     }
