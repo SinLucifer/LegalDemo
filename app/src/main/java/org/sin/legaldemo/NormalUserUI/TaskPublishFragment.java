@@ -16,6 +16,7 @@ import org.sin.legaldemo.Util.Content;
 import org.sin.legaldemo.JavaBean.Task;
 import org.sin.legaldemo.JavaBean.UserBean;
 import org.sin.legaldemo.R;
+import org.sin.legaldemo.Util.Utils;
 
 import cn.bmob.v3.listener.SaveListener;
 
@@ -79,7 +80,7 @@ public class TaskPublishFragment extends Fragment {
             task.save(getContext(), new SaveListener() {
                 @Override
                 public void onSuccess() {
-                    Toast.makeText(getContext(), "任务发布成功~请等待律师抢单~", Toast.LENGTH_SHORT).show();
+                    Utils.mToast("任务发布成功~请等待律师抢单~");
                     FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.main_fragment_container, new SelectFragment());
                     transaction.commit();
@@ -87,7 +88,7 @@ public class TaskPublishFragment extends Fragment {
 
                 @Override
                 public void onFailure(int i, String s) {
-                    Toast.makeText(getContext(), "发布失败！请稍后重试！", Toast.LENGTH_SHORT).show();
+                    Utils.mToast("发布失败！请稍后重试！"+s);
                 }
             });
         }

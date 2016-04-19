@@ -53,7 +53,7 @@ public class TaskViewAdapter extends BaseAdapter {
         private TextView itemTitle;
         private TextView itemState;
         private TextView itemType;
-        private TextView itemNick;
+        private TextView itemUsername;
         private TextView itemContent;
         private Button itemBnMore;
         private Button itemBnCancel;}
@@ -70,7 +70,7 @@ public class TaskViewAdapter extends BaseAdapter {
             myViewHolder.itemTitle = (TextView)convertView.findViewById(R.id.list_item_title);
             myViewHolder.itemState = (TextView)convertView.findViewById(R.id.list_item_state);
             myViewHolder.itemType = (TextView)convertView.findViewById(R.id.list_item_type);
-            myViewHolder.itemNick = (TextView)convertView.findViewById(R.id.list_item_nick);
+            myViewHolder.itemUsername = (TextView)convertView.findViewById(R.id.list_item_username);
             myViewHolder.itemContent = (TextView)convertView.findViewById(R.id.list_item_content);
             myViewHolder.itemBnMore = (Button)convertView.findViewById(R.id.list_item_card_more) ;
             myViewHolder.itemBnCancel = (Button)convertView.findViewById(R.id.list_item_card_cancel) ;
@@ -82,10 +82,10 @@ public class TaskViewAdapter extends BaseAdapter {
         myViewHolder.itemTitle.setText(task.getTitle());
         if (task.isBook()){
             myViewHolder.itemState.setText("已被抢单");
-            myViewHolder.itemNick.setText("抢单律师" + task.getLawyer().getNick());
+            myViewHolder.itemUsername.setText("抢单律师: " + task.getLawyer().getUsername());
         }else{
             myViewHolder.itemState.setText("等待抢单");
-            myViewHolder.itemNick.setText("无");
+            myViewHolder.itemUsername.setText("无");
         }
         myViewHolder.itemType.setText(task.getEvent_type());
         myViewHolder.itemContent.setText(task.getShort_content());

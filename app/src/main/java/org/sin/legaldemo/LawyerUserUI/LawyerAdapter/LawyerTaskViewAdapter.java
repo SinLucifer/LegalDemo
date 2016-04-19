@@ -55,7 +55,7 @@ public class LawyerTaskViewAdapter extends BaseAdapter {
         private TextView itemTitle;
         private TextView itemState;
         private TextView itemType;
-        private TextView itemNick;
+        private TextView itemUsername;
         private TextView itemContent;
         private Button itemBnMore;
         private Button itemBnCancel;}
@@ -72,7 +72,7 @@ public class LawyerTaskViewAdapter extends BaseAdapter {
             myViewHolder.itemTitle = (TextView)convertView.findViewById(R.id.list_item_title);
             myViewHolder.itemState = (TextView)convertView.findViewById(R.id.list_item_state);
             myViewHolder.itemType = (TextView)convertView.findViewById(R.id.list_item_type);
-            myViewHolder.itemNick = (TextView)convertView.findViewById(R.id.list_item_nick);
+            myViewHolder.itemUsername = (TextView)convertView.findViewById(R.id.list_item_username);
             myViewHolder.itemContent = (TextView)convertView.findViewById(R.id.list_item_content);
             myViewHolder.itemBnMore = (Button)convertView.findViewById(R.id.list_item_card_more) ;
             myViewHolder.itemBnCancel = (Button)convertView.findViewById(R.id.list_item_card_cancel) ;
@@ -88,8 +88,8 @@ public class LawyerTaskViewAdapter extends BaseAdapter {
             myViewHolder.itemTitle.setText(task.getTitle());
             myViewHolder.itemState.setText("订单");
             myViewHolder.itemType.setText(task.getEvent_type());
-            myViewHolder.itemNick.setText("发布人" + task.getTask_publisher().getNick());
-            myViewHolder.itemNick.setClickable(true);
+
+            myViewHolder.itemUsername.setText("发布人: " + task.getTask_publisher().getUsername());
             myViewHolder.itemContent.setText(task.getShort_content());
 
         }
@@ -208,7 +208,7 @@ public class LawyerTaskViewAdapter extends BaseAdapter {
 
             AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
 
-            builder.setMessage(task.getTask_publisher().getNick());
+            builder.setMessage(task.getTask_publisher().getUsername());
 
 
             builder.setNegativeButton("返回", new DialogInterface.OnClickListener() {

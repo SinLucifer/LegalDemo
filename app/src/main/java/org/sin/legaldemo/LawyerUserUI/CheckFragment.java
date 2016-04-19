@@ -1,8 +1,10 @@
 package org.sin.legaldemo.LawyerUserUI;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import android.widget.Toast;
 import org.sin.legaldemo.JavaBean.Task;
 import org.sin.legaldemo.LawyerUserUI.LawyerAdapter.LawyerCheckAdapter;
 import org.sin.legaldemo.R;
+import org.sin.legaldemo.Util.Utils;
 
 import java.util.Date;
 import java.util.List;
@@ -64,7 +67,7 @@ public class CheckFragment extends Fragment implements XListView.IXListViewListe
 
             @Override
             public void onError(int i, String s) {
-                Toast.makeText(getContext(),"ERROR", Toast.LENGTH_SHORT).show();
+                Utils.mToast(s);
             }
         });
     }
@@ -72,7 +75,7 @@ public class CheckFragment extends Fragment implements XListView.IXListViewListe
     private void onLoad() {
         mListView.stopRefresh();
         mListView.stopLoadMore();
-        mListView.setRefreshTime("最近更新:" + new Date().toLocaleString());
+        mListView.setRefreshTime("最近更新: " + new Date().toLocaleString());
     }
 
     @Override
