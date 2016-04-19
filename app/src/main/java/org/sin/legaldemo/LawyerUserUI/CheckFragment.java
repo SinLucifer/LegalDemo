@@ -132,9 +132,26 @@ public class CheckFragment extends Fragment implements XListView.IXListViewListe
                         });
                         tooLate.create().show();
                     } else {
-                        DetailDialog detailDialog = DetailDialog.newInstance(task);
-                        detailDialog.show(getActivity().getSupportFragmentManager(), "DetailDialog");
-                        onRefresh();
+                        final Context mContext = getActivity();
+                        final Task temp = task;
+                        temp.setBook(true);
+                        String objectID = temp.getObjectId();
+                        temp.setLawyer(BmobUser.getCurrentUser(getContext(), UserBean.class));
+                        temp.update(mContext, objectID , new UpdateListener() {
+                            @Override
+                            public void onSuccess() {
+                                DetailDialog detailDialog = DetailDialog.newInstance(temp);
+                                detailDialog.show(getActivity().getSupportFragmentManager(), "DetailDialog");
+                                onRefresh();
+
+                            }
+
+                            @Override
+                            public void onFailure(int i, String s) {
+                                Utils.mToast("抢单失败，请稍后重试" + s);
+                                onRefresh();
+                            }
+                        });
                     }
 
                 }

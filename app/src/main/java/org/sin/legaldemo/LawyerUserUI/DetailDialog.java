@@ -52,20 +52,6 @@ public class DetailDialog extends DialogFragment {
     {
         if (getArguments() != null){
             task = (Task) getArguments().getSerializable("task");
-            task.setBook(true);
-            String objectID = task.getObjectId();
-            task.setLawyer(BmobUser.getCurrentUser(getContext(), UserBean.class));
-            task.update(getContext(), objectID , new UpdateListener() {
-                @Override
-                public void onSuccess() {
-
-                }
-
-                @Override
-                public void onFailure(int i, String s) {
-                    Utils.mToast("抢单失败，请稍后重试" + s);
-                }
-            });
         }
         View view = inflater.inflate(R.layout.dialog_detail, container);
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
