@@ -169,14 +169,14 @@ public class LawyerCheckAdapter extends BaseAdapter {
                 task.update(mContext, objectID , new UpdateListener() {
                     @Override
                     public void onSuccess() {
-                        Utils.mToast(mContext, "抢单成功");
+                        Utils.mToast("抢单成功");
                         DetailDialog detailDialog = DetailDialog.newInstance(task.getTitle(),task.getShort_content());
                         detailDialog.show(activity.getSupportFragmentManager(), "DetailDialog");
                     }
 
                     @Override
                     public void onFailure(int i, String s) {
-                        Utils.mToast(mContext, "抢单失败，请稍后重试" + s);
+                        Utils.mToast("抢单失败，请稍后重试" + s);
                     }
                 });
             }
