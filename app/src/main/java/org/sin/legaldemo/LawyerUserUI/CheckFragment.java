@@ -62,7 +62,6 @@ public class CheckFragment extends Fragment implements XListView.IXListViewListe
 
                 viewAdapter = new LawyerCheckAdapter(getContext(), list, getActivity());
                 mListView.setAdapter(viewAdapter);  //获取成功后才设置adapter
-                onRefresh();
             }
 
             @Override

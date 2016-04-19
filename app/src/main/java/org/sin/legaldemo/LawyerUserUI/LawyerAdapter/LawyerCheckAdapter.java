@@ -118,7 +118,7 @@ public class LawyerCheckAdapter extends BaseAdapter {
         @Override
         public void onClick(View v) {
             textView.clearAnimation();
-            isExpand=!isExpand;
+            isExpand = !isExpand;
             final int tempHight;
             final int startHight= textView.getHeight();
             int durationMillis = 200;
@@ -172,6 +172,7 @@ public class LawyerCheckAdapter extends BaseAdapter {
                         Utils.mToast(mContext, "抢单成功");
                         DetailDialog detailDialog = DetailDialog.newInstance(task.getTitle(),task.getShort_content());
                         detailDialog.show(activity.getSupportFragmentManager(), "DetailDialog");
+
                     }
 
                     @Override
