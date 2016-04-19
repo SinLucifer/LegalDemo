@@ -1,7 +1,10 @@
 package org.sin.legaldemo.LawyerUserUI.LawyerAdapter;
 
+import android.app.Activity;
 import android.content.Context;
+
 import android.content.DialogInterface;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,11 +14,12 @@ import android.view.animation.Transformation;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.sin.legaldemo.JavaBean.Task;
 import org.sin.legaldemo.JavaBean.UserBean;
+import org.sin.legaldemo.LawyerUserUI.DetailDialog;
 import org.sin.legaldemo.R;
+import org.sin.legaldemo.Util.Utils;
 
 import java.util.List;
 
@@ -29,10 +33,12 @@ public class LawyerCheckAdapter extends BaseAdapter {
 
     private Context mContext;
     private List<Task> mList;
+    private FragmentActivity activity;
 
-    public LawyerCheckAdapter(Context mContext, List<Task> mList) {
+    public LawyerCheckAdapter(Context mContext, List<Task> mList, FragmentActivity activity) {
         this.mContext = mContext;
         this.mList = mList;
+        this.activity = activity;
     }
 
     @Override
@@ -158,17 +164,19 @@ public class LawyerCheckAdapter extends BaseAdapter {
                 tooLate.create().show();
             }else {
                 task.setBook(true);
-                String objectID = task.getObjectId();
+                final String objectID = task.getObjectId();
                 task.setLawyer(BmobUser.getCurrentUser(mContext, UserBean.class));
                 task.update(mContext, objectID , new UpdateListener() {
                     @Override
                     public void onSuccess() {
-                        Toast.makeText(mContext, "抢单成功", Toast.LENGTH_SHORT).show();
+                        Utils.mToast(mContext, "抢单成功");
+                        DetailDialog detailDialog = DetailDialog.newInstance(task.getTitle(),task.getShort_content());
+                        detailDialog.show(activity.getSupportFragmentManager(), "DetailDialog");
                     }
 
                     @Override
                     public void onFailure(int i, String s) {
-                        Toast.makeText(mContext, "抢单失败，请稍后重试" + s, Toast.LENGTH_SHORT).show();
+                        Utils.mToast(mContext, "抢单失败，请稍后重试" + s);
                     }
                 });
             }

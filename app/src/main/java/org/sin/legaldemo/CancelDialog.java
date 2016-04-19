@@ -48,11 +48,9 @@ public class CancelDialog extends DialogFragment {
                     // DialogFragment已经被销毁，故无法再次getActivity导致空指针异常
                     final Context mContext = getActivity();
                     final Task task = new Task();
-                    final UserBean user = new UserBean();
-                    task.setObjectId(objectID);
                     task.setBook(false);
-                    task.setLawyer(user);
-                    task.update(getContext(), new UpdateListener() {
+                    task.remove("lawyer");
+                    task.update(getContext(),objectID, new UpdateListener() {
                         @Override
                         public void onSuccess() {
                             Utils.mToast(mContext,"取消订单成功！");
