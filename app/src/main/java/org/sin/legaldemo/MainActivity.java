@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.sin.legaldemo.JavaBean.Task;
 import org.sin.legaldemo.JavaBean.UserBean;
 import org.sin.legaldemo.LawyerUserUI.CheckFragment;
 import org.sin.legaldemo.NormalUserUI.SelectFragment;
@@ -22,6 +23,7 @@ import org.sin.legaldemo.Util.Content;
 import org.sin.legaldemo.Util.Utils;
 import org.sin.legaldemo.WelcomeUI.WelcomeActivity;
 
+import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.BmobUser;
 
 public class MainActivity extends AppCompatActivity
@@ -134,6 +136,7 @@ public class MainActivity extends AppCompatActivity
         } else {
             menu.findItem(R.id.main_toolbar_send).setVisible(false);
         }
+
         return super.onPrepareOptionsMenu(menu);
     }
 

@@ -2,7 +2,7 @@ package org.sin.legaldemo.JavaBean;
 
 import cn.bmob.v3.BmobObject;
 
-public class Task extends BmobObject {
+public class Task extends BmobObject{
     private String title;
     private String event_type;
     private String short_content;

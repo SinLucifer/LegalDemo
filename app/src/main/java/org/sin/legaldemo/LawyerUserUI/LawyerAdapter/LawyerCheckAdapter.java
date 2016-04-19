@@ -33,12 +33,12 @@ public class LawyerCheckAdapter extends BaseAdapter {
 
     private Context mContext;
     private List<Task> mList;
-    private FragmentActivity activity;
+    private final View.OnClickListener itemButtonClickListener;
 
-    public LawyerCheckAdapter(Context mContext, List<Task> mList, FragmentActivity activity) {
+    public LawyerCheckAdapter(Context mContext, List<Task> mList,View.OnClickListener itemButtonClickListener) {
         this.mContext = mContext;
         this.mList = mList;
-        this.activity = activity;
+        this.itemButtonClickListener = itemButtonClickListener;
     }
 
     @Override
@@ -99,14 +99,15 @@ public class LawyerCheckAdapter extends BaseAdapter {
 
         myViewHolder.itemBnMore.setOnClickListener(new MyTurnListener(myViewHolder.itemContent
                 ,myViewHolder.itemBnMore));
-        myViewHolder.itemBnCancel.setOnClickListener(new MyOrderListener(task));
-
+        if (itemButtonClickListener != null) {
+            myViewHolder.itemBnCancel.setOnClickListener(itemButtonClickListener);
+        }
         return convertView;
     }
 
     private class MyTurnListener implements View.OnClickListener {   //TODO 考虑下小于三行的不能点击的问题，还有动画第一次会卡顿
 
-        public MyTurnListener(TextView textView,Button button) {
+        public MyTurnListener(TextView textView, Button button) {
             this.textView = textView;
             this.button = button;
         }
@@ -118,14 +119,14 @@ public class LawyerCheckAdapter extends BaseAdapter {
         @Override
         public void onClick(View v) {
             textView.clearAnimation();
-            isExpand=!isExpand;
+            isExpand = !isExpand;
             final int tempHight;
-            final int startHight= textView.getHeight();
+            final int startHight = textView.getHeight();
             int durationMillis = 200;
-            if (isExpand){
+            if (isExpand) {
                 tempHight = textView.getLineHeight() * textView.getLineCount() - startHight;
                 button.setText(R.string.bn_shrink);
-            }else {
+            } else {
                 tempHight = textView.getLineHeight() * 3 - startHight;//为负值，即短文减去长文的高度差
                 button.setText(R.string.bn_expand);
             }
@@ -141,46 +142,4 @@ public class LawyerCheckAdapter extends BaseAdapter {
             textView.startAnimation(animation);
         }
     }
-
-    private class MyOrderListener implements View.OnClickListener {
-        private Task task;
-
-        public MyOrderListener(Task task) {
-            this.task = task;
-        }
-
-        @Override
-        public void onClick(View v) {
-
-            if (task.isBook()){
-                AlertDialog.Builder tooLate = new AlertDialog.Builder(mContext);
-                tooLate.setMessage("该单以被抢");
-                tooLate.setNegativeButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                tooLate.create().show();
-            }else {
-                task.setBook(true);
-                final String objectID = task.getObjectId();
-                task.setLawyer(BmobUser.getCurrentUser(mContext, UserBean.class));
-                task.update(mContext, objectID , new UpdateListener() {
-                    @Override
-                    public void onSuccess() {
-                        DetailDialog detailDialog = DetailDialog.newInstance(task);
-                        detailDialog.show(activity.getSupportFragmentManager(), "DetailDialog");
-                    }
-
-                    @Override
-                    public void onFailure(int i, String s) {
-                        Utils.mToast("抢单失败，请稍后重试" + s);
-                    }
-                });
-            }
-
-        }
-    }
-
 }

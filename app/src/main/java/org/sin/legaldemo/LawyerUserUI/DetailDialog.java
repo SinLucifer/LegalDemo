@@ -13,8 +13,13 @@ import android.widget.TextView;
 import junit.framework.Test;
 
 import org.sin.legaldemo.JavaBean.Task;
+import org.sin.legaldemo.JavaBean.UserBean;
 import org.sin.legaldemo.R;
+import org.sin.legaldemo.Util.Utils;
 import org.w3c.dom.Text;
+
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.listener.UpdateListener;
 
 
 /**
@@ -47,6 +52,20 @@ public class DetailDialog extends DialogFragment {
     {
         if (getArguments() != null){
             task = (Task) getArguments().getSerializable("task");
+            task.setBook(true);
+            String objectID = task.getObjectId();
+            task.setLawyer(BmobUser.getCurrentUser(getContext(), UserBean.class));
+            task.update(getContext(), objectID , new UpdateListener() {
+                @Override
+                public void onSuccess() {
+
+                }
+
+                @Override
+                public void onFailure(int i, String s) {
+                    Utils.mToast("抢单失败，请稍后重试" + s);
+                }
+            });
         }
         View view = inflater.inflate(R.layout.dialog_detail, container);
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -58,6 +77,8 @@ public class DetailDialog extends DialogFragment {
 
         btPhone=(Button) view.findViewById(R.id.dialog_phone);
         btOk = (Button) view.findViewById(R.id.dialog_ok);
+
+
 
         tvTitle.setText(task.getTitle());
         tvState.setText("抢单成功");
