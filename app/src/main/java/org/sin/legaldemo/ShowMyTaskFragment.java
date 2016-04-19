@@ -1,4 +1,4 @@
-package org.sin.legaldemo.NormalUserUI;
+package org.sin.legaldemo;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,10 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import org.sin.legaldemo.JavaBean.Task;
@@ -21,9 +18,9 @@ import org.sin.legaldemo.R;
 
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Handler;
 
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.listener.DeleteListener;
 import cn.bmob.v3.listener.FindListener;
 import me.maxwin.view.XListView;
 
@@ -36,11 +33,12 @@ public class ShowMyTaskFragment extends Fragment implements XListView.IXListView
     private android.os.Handler mHandler;
 
     private UserBean user;
+    private Task task;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mView = inflater.inflate(R.layout.fragment_show_my_task,container,false);
+        mView = inflater.inflate(R.layout.fragment_listview,container,false);
         mListView = (XListView) mView.findViewById(R.id.xListView);
         mListView.getOnItemClickListener();
 
@@ -60,18 +58,21 @@ public class ShowMyTaskFragment extends Fragment implements XListView.IXListView
         user = UserBean.getCurrentUser(getContext(),UserBean.class);
         if (!user.isLayer()){
             mQuery.addWhereEqualTo("task_publisher", user);
+            mQuery.include("lawyer");
         }else {
             mQuery.addWhereEqualTo("lawyer", user);
+            mQuery.addWhereEqualTo("isBook", true);
+            mQuery.include("task_publisher");
         }
         mQuery.order("-updatedAt");
-        mQuery.include("task_publisher");
+
         mQuery.findObjects(getContext(), new FindListener<Task>() {
             @Override
             public void onSuccess(List<Task> list) {
                 if (!user.isLayer()) {
-                    viewAdapter = new TaskViewAdapter(getContext(), list);
+                    viewAdapter = new TaskViewAdapter(getContext(), list,new ListItemButtonClickListener());
                 }else{
-                    viewAdapter = new LawyerTaskViewAdapter(getContext(), list);
+                    viewAdapter = new LawyerTaskViewAdapter(getContext(), list,new ListItemButtonClickListener());
                 }
                 mListView.setAdapter(viewAdapter);  //获取成功后才设置adapter
             }
@@ -83,7 +84,7 @@ public class ShowMyTaskFragment extends Fragment implements XListView.IXListView
         });
     }
 
-    private void onLoad() {    //TODO   想办法弄成具体时间
+    private void onLoad() {
         mListView.stopRefresh();
         mListView.stopLoadMore();
         mListView.setRefreshTime("最近更新:" + new Date().toLocaleString());
@@ -112,4 +113,21 @@ public class ShowMyTaskFragment extends Fragment implements XListView.IXListView
         }, 2000);
     }
 
+    private final class ListItemButtonClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+
+            for (int i = mListView.getFirstVisiblePosition()
+                 ; i <= mListView.getLastVisiblePosition(); i++) {
+
+                task = (Task) mListView.getAdapter().getItem(i);
+                if (v == mListView.getChildAt(i - mListView.getFirstVisiblePosition())
+                        .findViewById(R.id.list_item_card_cancel)) {
+                    CancelDialog cancelDialog = CancelDialog.newInstance(task.getObjectId());
+                    cancelDialog.show(getActivity().getSupportFragmentManager(),"CancelDialog");
+                    onRefresh();
+                }
+            }
+        }
+    }
 }

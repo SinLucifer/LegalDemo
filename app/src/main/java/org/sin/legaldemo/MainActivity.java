@@ -13,11 +13,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.sin.legaldemo.JavaBean.UserBean;
 import org.sin.legaldemo.LawyerUserUI.CheckFragment;
 import org.sin.legaldemo.NormalUserUI.SelectFragment;
-import org.sin.legaldemo.NormalUserUI.ShowMyTaskFragment;
 import org.sin.legaldemo.Util.Content;
 import org.sin.legaldemo.Util.Utils;
 import org.sin.legaldemo.WelcomeUI.WelcomeActivity;
@@ -121,6 +121,7 @@ public class MainActivity extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {

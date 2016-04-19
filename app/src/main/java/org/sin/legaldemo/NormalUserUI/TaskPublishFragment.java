@@ -19,7 +19,7 @@ import org.sin.legaldemo.R;
 
 import cn.bmob.v3.listener.SaveListener;
 
-public class TaskFragment extends Fragment {
+public class TaskPublishFragment extends Fragment {
     private View mView;
     private EditText mTitle;
     private EditText mContent;
