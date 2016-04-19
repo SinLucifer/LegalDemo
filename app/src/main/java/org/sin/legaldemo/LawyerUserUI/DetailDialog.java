@@ -26,10 +26,11 @@ public class DetailDialog extends DialogFragment {
 
     private TextView tvTitle;
     private TextView tvState;
-    private TextView tvType;
     private TextView tvUsername;
-    private TextView tvContent;
-    private Button tvOk;
+    private TextView tvEmail;
+    private Button btPhone;
+    private Button btWait;
+    private Button btOk;
 
     public static DetailDialog newInstance(Task task) {
         Bundle args = new Bundle();
@@ -52,17 +53,24 @@ public class DetailDialog extends DialogFragment {
 
         tvTitle = (TextView) view.findViewById(R.id.dialog_title);
         tvState = (TextView) view.findViewById(R.id.dialog_state);
-        tvType = (TextView) view.findViewById(R.id.dialog_type);
         tvUsername = (TextView) view.findViewById(R.id.dialog_username);
-        tvContent = (TextView) view.findViewById(R.id.dialog_content);
-        tvOk = (Button) view.findViewById(R.id.dialog_ok);
+        tvEmail = (TextView) view.findViewById(R.id.dialog_email);
+
+        btPhone=(Button) view.findViewById(R.id.dialog_phone);
+        btOk = (Button) view.findViewById(R.id.dialog_ok);
 
         tvTitle.setText(task.getTitle());
         tvState.setText("抢单成功");
-        tvType.setText(task.getEvent_type());
-        tvUsername.setText("发布人：" + task.getTask_publisher().getUsername());
-        tvContent.setText(task.getShort_content());
-        tvOk.setOnClickListener(new View.OnClickListener() {
+        tvUsername.setText("发布人：" + task.getTask_publisher().getFirstName() + task.getTask_publisher().getLastName());
+        tvEmail.setText("邮箱：" + task.getTask_publisher().getEmail());
+
+        btPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        btOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dismiss();

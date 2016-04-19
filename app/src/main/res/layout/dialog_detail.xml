@@ -2,62 +2,71 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="1">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:src="@mipmap/ic_launcher"
+            android:id="@+id/imageView2"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true" />
+
         <TextView
             android:id="@+id/dialog_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
+            android:paddingTop="5dp"
             android:ellipsize="end"
             android:hint="@string/tp_title"
             android:maxEms="10"
             android:textSize="18sp"
             android:textColor="@color/black"
-            android:singleLine="true" />
-
-        <TextView
-            android:id="@+id/dialog_state"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:hint="@string/hint_state"
-            android:textColor="@color/red"
-            android:textSize="18sp" />
-
-    </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dip"
-        android:layout_marginLeft="5dip"
-        android:layout_marginRight="5dip"
-        android:background="@color/light_grey" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/dialog_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:hint="@string/tp_type"
-            android:textSize="14sp" />
+            android:singleLine="true"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/imageView2"
+            android:layout_marginStart="39dp" />
 
         <TextView
             android:id="@+id/dialog_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:hint="@string/no"
-            android:textSize="14sp" />
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:hint="联系人"
+            android:textSize="14sp"
+            android:layout_below="@+id/dialog_title"
+            android:layout_alignStart="@+id/dialog_title" />
+
+        <TextView
+            android:id="@+id/dialog_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:hint="邮箱"
+            android:layout_below="@+id/dialog_username"
+            android:layout_alignStart="@+id/dialog_username" />
+
+        <TextView
+            android:id="@+id/dialog_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_state"
+            android:textColor="@color/red"
+            android:textSize="21sp"
+            android:layout_above="@+id/dialog_username"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="18dp" />
+
+
     </RelativeLayout>
 
     <View
@@ -65,30 +74,40 @@
         android:layout_height="1dip"
         android:layout_marginLeft="5dip"
         android:layout_marginRight="5dip"
-        android:background="@color/light_grey" />
-
-
-    <TextView
-        android:id="@+id/dialog_content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="content"
-        android:textSize="14sp"/>
-
-
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:background="@color/gray" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-    <Button
-        android:id="@+id/dialog_ok"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:background="@color/lg_background"
-        android:textColor="@color/colorAccent"
-        android:text="@string/ok" />
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/dialog_phone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/colorAccent"
+            android:text="手机"
+            android:background="@color/white"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/colorAccent"
+            android:hint="待定"
+            android:background="@color/white"/>
+
+        <Button
+            android:id="@+id/dialog_ok"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/colorAccent"
+            android:text="@string/ok"
+            android:background="@color/white"/>
 
     </LinearLayout>
 
