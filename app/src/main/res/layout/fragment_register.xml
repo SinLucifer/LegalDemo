@@ -26,7 +26,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="16dp"
                 android:hint="@string/lg_username"
                 android:singleLine="true"
                 android:textColorHint="@color/deep_gray" />
@@ -37,11 +37,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="40dp"
-                android:singleLine="true"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
                 android:hint="@string/lg_password"
                 android:inputType="textPassword"
+                android:singleLine="true"
                 android:textColorHint="@color/deep_gray" />
 
             <EditText
@@ -51,10 +51,28 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:layout_marginTop="40dp"
-                android:singleLine="true"
+                android:layout_marginTop="16dp"
                 android:hint="@string/re_nickname"
+                android:singleLine="true"
                 android:textColorHint="@color/deep_gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="@string/first_name"
+                    android:textColor="@color/deep_gray"
+                    android:textSize="18sp" />
+            </LinearLayout>
 
             <TableLayout
                 android:layout_width="match_parent"
@@ -62,7 +80,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:layout_marginTop="40dp">
+                android:layout_marginTop="15dp">
 
                 <TableRow>
 
@@ -105,7 +123,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:layout_marginTop="40dp">
+                android:layout_marginTop="15dp">
 
                 <TableRow>
 

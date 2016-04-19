@@ -33,6 +33,8 @@
     <string name="male">男</string>
     <string name="female">女</string>
     <string name="submit">确认</string>
+    <string name="first_name">姓</string>
+    <string name="last_name">名</string>
 
     <!--XListView-->
     <string name="xlistview_header_hint_normal">下拉刷新</string>
