@@ -60,7 +60,7 @@ public class LawyerCheckAdapter extends BaseAdapter {
         private TextView itemTitle;
         private TextView itemState;
         private TextView itemType;
-        private TextView itemNick;
+        private TextView itemUsername;
         private TextView itemContent;
         private Button itemBnMore;
         private Button itemBnCancel;}
@@ -77,7 +77,7 @@ public class LawyerCheckAdapter extends BaseAdapter {
             myViewHolder.itemTitle = (TextView)convertView.findViewById(R.id.list_item_title);
             myViewHolder.itemState = (TextView)convertView.findViewById(R.id.list_item_state);
             myViewHolder.itemType = (TextView)convertView.findViewById(R.id.list_item_type);
-            myViewHolder.itemNick = (TextView)convertView.findViewById(R.id.list_item_nick);
+            myViewHolder.itemUsername = (TextView)convertView.findViewById(R.id.list_item_username);
             myViewHolder.itemContent = (TextView)convertView.findViewById(R.id.list_item_content);
             myViewHolder.itemBnMore = (Button)convertView.findViewById(R.id.list_item_card_more) ;
             myViewHolder.itemBnCancel = (Button)convertView.findViewById(R.id.list_item_card_cancel) ;
@@ -92,7 +92,7 @@ public class LawyerCheckAdapter extends BaseAdapter {
             myViewHolder.itemTitle.setText(task.getTitle());
             myViewHolder.itemState.setText("订单");
             myViewHolder.itemType.setText(task.getEvent_type());
-            myViewHolder.itemNick.setText("发布人" + task.getTask_publisher().getNick());
+            myViewHolder.itemUsername.setText("发布人: " + task.getTask_publisher().getUsername());
             myViewHolder.itemContent.setText(task.getShort_content());
 
         }

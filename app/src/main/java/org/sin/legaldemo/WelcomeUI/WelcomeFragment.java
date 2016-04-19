@@ -13,8 +13,6 @@ import org.sin.legaldemo.R;
 
 public class WelcomeFragment extends Fragment {
     private View mView;
-    private Button btn_login;
-    private Button btn_register;
 
     private LoginFragment loginFragment;
     private RegisterFragment registerFragment;
@@ -33,8 +31,8 @@ public class WelcomeFragment extends Fragment {
         registerFragment = new RegisterFragment();
         loginFragment = new LoginFragment();
 
-        btn_login = (Button) mView.findViewById(R.id.btn_welcome_login);
-        btn_register = (Button) mView.findViewById(R.id.btn_welcome_register);
+        Button btn_login = (Button) mView.findViewById(R.id.btn_welcome_login);
+        Button btn_register = (Button) mView.findViewById(R.id.btn_welcome_register);
 
         transaction = getActivity().getSupportFragmentManager().beginTransaction();
 

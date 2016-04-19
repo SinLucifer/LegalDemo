@@ -68,7 +68,10 @@ public class MainActivity extends AppCompatActivity
         View headerView = navigationView.getHeaderView(0); //为了设置侧边栏的东西才获得的
 
         TextView tv_username = (TextView) headerView.findViewById(R.id.tv_username);
-        tv_username.setText(user.getNick());
+        TextView tv_email = (TextView) headerView.findViewById(R.id.tv_email);
+
+        tv_username.setText(user.getUsername());
+        tv_email.setText(user.getEmail());
 
         if (user.isLayer()) {
             Log.d("Sin", "is a layer");

@@ -51,14 +51,15 @@ public class CancelDialog extends DialogFragment {
                     task.setBook(false);
                     task.remove("lawyer");
                     task.update(getContext(),objectID, new UpdateListener() {
+
                         @Override
                         public void onSuccess() {
-                            Utils.mToast(mContext,"取消订单成功！");
+                            Utils.mToast("取消订单成功！");
                         }
 
                         @Override
                         public void onFailure(int i, String s) {
-                            Utils.mToast(mContext,"取消订单失败！"+s);
+                            Utils.mToast("取消订单失败！"+s);
                         }
                     });
                 }
@@ -75,12 +76,12 @@ public class CancelDialog extends DialogFragment {
                     del.delete(getContext(), new DeleteListener() {
                         @Override
                         public void onSuccess() {
-                            Utils.mToast(mContext,"删除成功！");
+                            Utils.mToast("删除成功！");
                         }
 
                         @Override
                         public void onFailure(int i, String s) {
-                            Utils.mToast(mContext,"删除失败！"+s);
+                            Utils.mToast("删除失败！"+s);
                         }
                     });
                 }

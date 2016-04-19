@@ -55,12 +55,12 @@
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/list_item_nick"
+            android:id="@+id/list_item_username"
             style="@style/ListItemTextRight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:hint="@string/hint_nick"
+            android:hint="@string/no"
             android:textSize="14sp" />
     </RelativeLayout>
 
