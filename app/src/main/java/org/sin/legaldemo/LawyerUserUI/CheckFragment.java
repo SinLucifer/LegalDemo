@@ -96,7 +96,6 @@ public class CheckFragment extends Fragment implements XListView.IXListViewListe
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                initTask();
                 viewAdapter.notifyDataSetChanged();
                 onLoad();
             }

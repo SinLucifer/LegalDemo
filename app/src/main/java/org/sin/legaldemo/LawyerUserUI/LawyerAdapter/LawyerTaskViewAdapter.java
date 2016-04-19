@@ -76,6 +76,7 @@ public class LawyerTaskViewAdapter extends BaseAdapter {
             myViewHolder.itemBnCancel = (Button)convertView.findViewById(R.id.list_item_card_cancel) ;
             myViewHolder.itemBnCancel.setText("取消抢单");
             convertView.setTag(myViewHolder);
+
         }else {
             myViewHolder = (MyViewHolder) convertView.getTag();
         }
@@ -86,6 +87,7 @@ public class LawyerTaskViewAdapter extends BaseAdapter {
             myViewHolder.itemState.setText("订单");
             myViewHolder.itemType.setText(task.getEvent_type());
             myViewHolder.itemNick.setText("发布人" + task.getTask_publisher().getNick());
+            myViewHolder.itemNick.setClickable(true);
             myViewHolder.itemContent.setText(task.getShort_content());
 
         }
@@ -93,6 +95,7 @@ public class LawyerTaskViewAdapter extends BaseAdapter {
         myViewHolder.itemBnMore.setOnClickListener(new MyTurnListener(myViewHolder.itemContent
                     ,myViewHolder.itemBnMore));
         myViewHolder.itemBnCancel.setOnClickListener(new MyCancelListener(task));
+        myViewHolder.itemNick.setOnClickListener(new NickTVListener(task));
 
         return convertView;
     }
@@ -186,6 +189,37 @@ public class LawyerTaskViewAdapter extends BaseAdapter {
 
             builder.create().show();
 
+        }
+    }
+
+    private class NickTVListener implements OnClickListener{
+        private Task task;
+
+        public NickTVListener(Task task){
+            this.task = task;
+        }
+
+        @Override
+        public void onClick(View v) {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+
+            builder.setMessage(task.getTask_publisher().getNick());
+
+
+            builder.setNegativeButton("返回", new DialogInterface.OnClickListener() {
+
+                @Override
+
+                public void onClick(DialogInterface dialog, int which) {
+
+                    dialog.dismiss();
+
+                }
+
+            });
+
+            builder.create().show();
         }
     }
 
