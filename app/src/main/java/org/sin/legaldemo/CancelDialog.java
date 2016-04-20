@@ -13,6 +13,7 @@ import org.sin.legaldemo.JavaBean.Task;
 import org.sin.legaldemo.JavaBean.UserBean;
 import org.sin.legaldemo.Util.Utils;
 
+import cn.bmob.v3.BmobACL;
 import cn.bmob.v3.listener.DeleteListener;
 import cn.bmob.v3.listener.UpdateListener;
 
@@ -48,9 +49,15 @@ public class CancelDialog extends DialogFragment {
                     // DialogFragment已经被销毁，故无法再次getActivity导致空指针异常
                     final Context mContext = getActivity();
                     final Task task = new Task();
+
+                    BmobACL bmobACL = new BmobACL();
+                    bmobACL.setPublicReadAccess(true);
+                    bmobACL.setPublicWriteAccess(true);
+                    task.setObjectId(objectID);
                     task.setBook(false);
                     task.remove("lawyer");
-                    task.update(getContext(),objectID, new UpdateListener() {
+                    task.setACL(bmobACL);
+                    task.update(getContext(), new UpdateListener() {
 
                         @Override
                         public void onSuccess() {

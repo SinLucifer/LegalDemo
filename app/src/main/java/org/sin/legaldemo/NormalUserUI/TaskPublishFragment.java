@@ -18,6 +18,7 @@ import org.sin.legaldemo.JavaBean.UserBean;
 import org.sin.legaldemo.R;
 import org.sin.legaldemo.Util.Utils;
 
+import cn.bmob.v3.BmobACL;
 import cn.bmob.v3.listener.SaveListener;
 
 public class TaskPublishFragment extends Fragment {
@@ -70,12 +71,20 @@ public class TaskPublishFragment extends Fragment {
             UserBean user = UserBean.getCurrentUser(getContext(), UserBean.class);
 
             Task task = new Task();
+            BmobACL acl = new BmobACL();
+
+            acl.setPublicWriteAccess(true);
+            acl.setPublicReadAccess(true);
+
+//            acl.setReadAccess(user,true);
+//            acl.setWriteAccess(user,true);
 
             task.setTitle(mTitle.getText().toString().trim());
             task.setShort_content(mContent.getText().toString().trim());
             task.setEvent_type(mType.getText().toString().trim());
             task.setBook(false);
             task.setTask_publisher(user);
+            task.setACL(acl);
 
             task.save(getContext(), new SaveListener() {
                 @Override
