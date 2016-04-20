@@ -1,7 +1,11 @@
 package org.sin.legaldemo;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -33,6 +37,9 @@ public class MainActivity extends AppCompatActivity
 
     private ShowMyTaskFragment showMyTaskFragment;
     private UserBean user;
+    private SectionsPagerAdapter mSectionsPagerAdapter;
+
+    private ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +65,11 @@ public class MainActivity extends AppCompatActivity
 //            }
 //        });
 
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+
+        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -75,19 +87,19 @@ public class MainActivity extends AppCompatActivity
         tv_username.setText(user.getUsername());
         tv_email.setText(user.getEmail());
 
-        if (user.isLayer()) {
-            Log.d("Sin", "is a layer");
-            CheckFragment mFragment = new CheckFragment();
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.main_fragment_container, mFragment);
-            transaction.commit();
-        } else {
-            Log.d("Sin", "is not a layer");
-            SelectFragment mFragment = new SelectFragment();
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.main_fragment_container, mFragment);
-            transaction.commit();
-        }
+//        if (user.isLayer()) {
+//            Log.d("Sin", "is a layer");
+//            CheckFragment mFragment = new CheckFragment();
+//            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//            transaction.replace(R.id.main_fragment_container, mFragment);
+//            transaction.commit();
+//        } else {
+//            Log.d("Sin", "is not a layer");
+//            SelectFragment mFragment = new SelectFragment();
+//            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//            transaction.replace(R.id.main_fragment_container, mFragment);
+//            transaction.commit();
+//        }
 
 
     }
@@ -128,18 +140,6 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        if (Content.isTask) {
-            menu.findItem(R.id.main_toolbar_send).setVisible(true);
-            menu.findItem(R.id.main_toolbar_settings).setVisible(false);
-        } else {
-            menu.findItem(R.id.main_toolbar_send).setVisible(false);
-        }
-
-        return super.onPrepareOptionsMenu(menu);
-    }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -152,18 +152,57 @@ public class MainActivity extends AppCompatActivity
             UserBean.getCurrentUser(this);
             Utils.start_Activity(this, WelcomeActivity.class);
         } else if (id == R.id.nav_show_task) {
-            if (MYTASKISEXIST == 0) {
-                MYTASKISEXIST = 1;
-                showMyTaskFragment = new ShowMyTaskFragment();
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.main_fragment_container, showMyTaskFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
+//            if (MYTASKISEXIST == 0) {
+//                MYTASKISEXIST = 1;
+//                showMyTaskFragment = new ShowMyTaskFragment();
+//                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//                transaction.replace(R.id.main_fragment_container, showMyTaskFragment);
+//                transaction.addToBackStack(null);
+//                transaction.commit();
+//            }
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public class SectionsPagerAdapter extends FragmentPagerAdapter{
+        public SectionsPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+
+        @Override
+        public Fragment getItem(int position) {
+            if (position == 0){
+                if (UserBean.getCurrentUser(getApplicationContext(),UserBean.class).isLayer()){
+                    return CheckFragment.newInstance();
+                }else {
+                    return SelectFragment.newInstance();
+                }
+            }else {
+                return ShowMyTaskFragment.newInstance();
+            }
+        }
+
+        @Override
+        public int getCount() {
+            // Show 3 total pages.
+            return 2;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position) {
+                case 0:
+                    return "SECTION 1";
+                case 1:
+                    return "SECTION 2";
+                case 2:
+                    return "SECTION 3";
+            }
+            return null;
+        }
     }
 }

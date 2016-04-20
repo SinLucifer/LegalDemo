@@ -1,5 +1,7 @@
 package org.sin.legaldemo.NormalUserUI;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,7 +20,15 @@ import org.sin.legaldemo.R;
 public class SelectFragment extends Fragment {
     private View mView;
     private GridView mGridView;
-    private TaskPublishFragment taskPublishFragment;
+
+    public static SelectFragment newInstance() {
+        
+        Bundle args = new Bundle();
+        
+        SelectFragment fragment = new SelectFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Nullable
     @Override
@@ -26,26 +36,27 @@ public class SelectFragment extends Fragment {
         mView = inflater.inflate(R.layout.fragment_normal_select, container, false);
 
         mGridView = (GridView) mView.findViewById(R.id.gv_select_task);
-        Log.d("Sin", "In SelectFragment");
+//        Log.d("Sin", "In SelectFragment");
         mGridView.setAdapter(new GridViewAdapter(getContext()));
 
         mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Bundle bundle = new Bundle();
-                bundle.putString("Task_Type", Content.img_text[position]);
-                taskPublishFragment = new TaskPublishFragment();
-                taskPublishFragment.setArguments(bundle);
-                FragmentTransaction fragmentTransaction = getActivity().
-                        getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.main_fragment_container, taskPublishFragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                Intent intent = new Intent(getActivity(),TaskPublishActivity.class);
+
+                intent.putExtra("Task_Type", Content.img_text[position]);
+                startActivity(intent);
                 Content.isTask = true;
             }
         });
 
         return mView;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Log.d("Sin","I just Attach");
     }
 }

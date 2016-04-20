@@ -8,8 +8,13 @@
     tools:context="org.sin.legaldemo.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
-    <FrameLayout
+    <android.support.v4.view.ViewPager
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/main_fragment_container"/>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    <!--<FrameLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:id="@+id/main_fragment_container"/>-->
 </RelativeLayout>

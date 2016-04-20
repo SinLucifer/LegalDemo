@@ -36,6 +36,15 @@ public class ShowMyTaskFragment extends Fragment implements XListView.IXListView
     private UserBean user;
     private Task task;
 
+    public static ShowMyTaskFragment newInstance() {
+        
+        Bundle args = new Bundle();
+        
+        ShowMyTaskFragment fragment = new ShowMyTaskFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

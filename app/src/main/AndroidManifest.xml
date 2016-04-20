@@ -29,6 +29,9 @@
 
         <activity android:name=".MainActivity"
                   android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".NormalUserUI.TaskPublishActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
