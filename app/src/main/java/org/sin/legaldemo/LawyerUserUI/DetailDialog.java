@@ -18,7 +18,9 @@ import org.sin.legaldemo.R;
 import org.sin.legaldemo.Util.Utils;
 import org.w3c.dom.Text;
 
+import cn.bmob.v3.BmobACL;
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 
 
@@ -52,6 +54,32 @@ public class DetailDialog extends DialogFragment {
     {
         if (getArguments() != null){
             task = (Task) getArguments().getSerializable("task");
+            
+            UserBean lawyer = BmobUser.getCurrentUser(getContext(),UserBean.class);
+
+            BmobACL acl = new BmobACL();
+
+            acl.setWriteAccess(lawyer,true);
+            acl.setReadAccess(lawyer,true);
+            acl.setWriteAccess(task.getTask_publisher(),true);
+            acl.setReadAccess(task.getTask_publisher(),true);
+
+            task.setACL(acl);
+            task.setBook(true);
+            task.setLawyer(BmobUser.getCurrentUser(getContext(), UserBean.class));
+            task.update(getContext() , new UpdateListener() {
+                @Override
+                public void onSuccess() {
+                    Utils.mToast("抢单成功~！");
+                }
+
+                @Override
+                public void onFailure(int i, String s) {
+                    Utils.mToast("抢单失败，请稍后重试，该订单可能已被其他律师抢到了！");
+                }
+            });
+
+
         }
         View view = inflater.inflate(R.layout.dialog_detail, container);
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -67,7 +95,7 @@ public class DetailDialog extends DialogFragment {
 
 
         tvTitle.setText(task.getTitle());
-        tvState.setText("抢单成功");
+        tvState.setText("抢单中");
         tvUsername.setText("发布人：" + task.getTask_publisher().getFirstName() + task.getTask_publisher().getLastName());
         tvEmail.setText("邮箱：" + task.getTask_publisher().getEmail());
 
