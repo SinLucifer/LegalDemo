@@ -44,7 +44,7 @@
             android:background="@color/white"
             android:ellipsize="end"
             android:hint="@string/tp_title"
-            android:maxEms="6"
+            android:maxEms="5"
             android:textSize="18sp"
             android:textColor="@color/black"
             android:singleLine="true" />
@@ -69,6 +69,15 @@
             android:hint="待补充" />
 
         </LinearLayout>
+
+        <View
+            android:layout_width="1dip"
+            android:layout_height="50dip"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:background="@color/gray"
+            android:layout_alignBottom="@+id/linearLayout"
+            android:layout_toStartOf="@+id/linearLayout2" />
 
 
         <LinearLayout
