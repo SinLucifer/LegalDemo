@@ -8,63 +8,104 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:background="@color/white">
 
-        <ImageView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="5dp"
             android:paddingLeft="10dp"
-            android:src="@mipmap/ic_launcher"
-            android:id="@+id/imageView2"
+            android:paddingRight="10dp"
             android:layout_centerVertical="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:id="@+id/linearLayout">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_launcher"
+                android:id="@+id/imageView2"
+                 />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/linearLayout"
+            android:id="@+id/linearLayout3">
 
         <TextView
             android:id="@+id/dialog_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="5dp"
+            android:paddingTop="3dp"
+            android:background="@color/white"
             android:ellipsize="end"
             android:hint="@string/tp_title"
             android:maxEms="5"
             android:textSize="18sp"
             android:textColor="@color/black"
-            android:singleLine="true"
-            android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/imageView2"
-            android:layout_marginStart="39dp" />
+            android:singleLine="true" />
 
         <TextView
             android:id="@+id/dialog_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
+            android:background="@color/white"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:textColor="@color/deep_gray"
             android:hint="联系人"
-            android:textSize="14sp"
-            android:layout_below="@+id/dialog_title"
-            android:layout_alignStart="@+id/dialog_title" />
+            android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/dialog_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:hint="邮箱"
-            android:layout_below="@+id/dialog_username"
-            android:layout_alignStart="@+id/dialog_username" />
 
-        <TextView
-            android:id="@+id/dialog_state"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/hint_state"
-            android:textColor="@color/red"
-            android:textSize="21sp"
-            android:layout_above="@+id/dialog_username"
+            android:background="@color/white"
+            android:textSize="14sp"
+            android:hint="待补充" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dip"
+            android:layout_height="50dip"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:background="@color/gray"
+            android:layout_alignBottom="@+id/linearLayout"
+            android:layout_toStartOf="@+id/linearLayout2" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/linearLayout2"
+            android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="18dp" />
+            android:layout_marginEnd="15dp">
+
+            <Button
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/dialog_message"/>
+
+            <Button
+                android:id="@+id/dialog_phone"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/dialog_telephone" />
+
+
+        </LinearLayout>
+
+
 
 
     </RelativeLayout>
@@ -81,33 +122,25 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:paddingLeft="10dp"
+        android:orientation="horizontal"
+        android:background="@color/white">
 
-        <Button
-            android:id="@+id/dialog_phone"
+        <TextView
+            android:id="@+id/dialog_email"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textColor="@color/colorAccent"
-            android:text="手机"
-            android:background="@color/white"/>
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textColor="@color/colorAccent"
-            android:hint="待定"
-            android:background="@color/white"/>
+            android:textColor="@color/deep_gray"
+            android:layout_weight="2.5" />
 
         <Button
             android:id="@+id/dialog_ok"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/white"
             android:text="@string/ok"
-            android:background="@color/white"/>
+            android:background="@drawable/dialog_button"/>
 
     </LinearLayout>
 

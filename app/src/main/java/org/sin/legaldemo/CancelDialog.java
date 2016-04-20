@@ -80,7 +80,7 @@ public class CancelDialog extends DialogFragment {
                     final Context mContext = getActivity();
                     final Task del = new Task();
                     del.setObjectId(objectID);
-                    del.delete(getContext(), new DeleteListener() {
+                    del.delete(mContext, new DeleteListener() {
                         @Override
                         public void onSuccess() {
                             Utils.mToast("删除成功！");

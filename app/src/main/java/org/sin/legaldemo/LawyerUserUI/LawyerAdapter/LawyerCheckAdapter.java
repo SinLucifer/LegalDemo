@@ -35,7 +35,7 @@ public class LawyerCheckAdapter extends BaseAdapter {
     private List<Task> mList;
     private final View.OnClickListener itemButtonClickListener;
 
-    public LawyerCheckAdapter(Context mContext, List<Task> mList,View.OnClickListener itemButtonClickListener) {
+    public LawyerCheckAdapter(Context mContext, List<Task> mList, View.OnClickListener itemButtonClickListener) {
         this.mContext = mContext;
         this.mList = mList;
         this.itemButtonClickListener = itemButtonClickListener;
@@ -63,7 +63,8 @@ public class LawyerCheckAdapter extends BaseAdapter {
         private TextView itemUsername;
         private TextView itemContent;
         private Button itemBnMore;
-        private Button itemBnCancel;}
+        private Button itemBnCancel;
+    }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -71,23 +72,23 @@ public class LawyerCheckAdapter extends BaseAdapter {
 
 
         final MyViewHolder myViewHolder;
-        if (convertView == null){
+        if (convertView == null) {
             myViewHolder = new MyViewHolder();
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.list_item,parent,false);
-            myViewHolder.itemTitle = (TextView)convertView.findViewById(R.id.list_item_title);
-            myViewHolder.itemState = (TextView)convertView.findViewById(R.id.list_item_state);
-            myViewHolder.itemType = (TextView)convertView.findViewById(R.id.list_item_type);
-            myViewHolder.itemUsername = (TextView)convertView.findViewById(R.id.list_item_username);
-            myViewHolder.itemContent = (TextView)convertView.findViewById(R.id.list_item_content);
-            myViewHolder.itemBnMore = (Button)convertView.findViewById(R.id.list_item_card_more) ;
-            myViewHolder.itemBnCancel = (Button)convertView.findViewById(R.id.list_item_card_cancel) ;
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.list_item, parent, false);
+            myViewHolder.itemTitle = (TextView) convertView.findViewById(R.id.list_item_title);
+            myViewHolder.itemState = (TextView) convertView.findViewById(R.id.list_item_state);
+            myViewHolder.itemType = (TextView) convertView.findViewById(R.id.list_item_type);
+            myViewHolder.itemUsername = (TextView) convertView.findViewById(R.id.list_item_username);
+            myViewHolder.itemContent = (TextView) convertView.findViewById(R.id.list_item_content);
+            myViewHolder.itemBnMore = (Button) convertView.findViewById(R.id.list_item_card_more);
+            myViewHolder.itemBnCancel = (Button) convertView.findViewById(R.id.list_item_card_cancel);
             myViewHolder.itemBnCancel.setText("抢单");
             convertView.setTag(myViewHolder);
-        }else {
+        } else {
             myViewHolder = (MyViewHolder) convertView.getTag();
         }
 
-        if (task.getTask_publisher() != null){
+        if (task.getTask_publisher() != null) {
 
             myViewHolder.itemTitle.setText(task.getTitle());
             myViewHolder.itemState.setText("订单");
@@ -98,7 +99,7 @@ public class LawyerCheckAdapter extends BaseAdapter {
         }
 
         myViewHolder.itemBnMore.setOnClickListener(new MyTurnListener(myViewHolder.itemContent
-                ,myViewHolder.itemBnMore));
+                , myViewHolder.itemBnMore));
         if (itemButtonClickListener != null) {
             myViewHolder.itemBnCancel.setOnClickListener(itemButtonClickListener);
         }
