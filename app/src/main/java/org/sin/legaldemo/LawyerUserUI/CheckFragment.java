@@ -42,6 +42,15 @@ public class CheckFragment extends Fragment implements XListView.IXListViewListe
 
     private Task task;
 
+    public static CheckFragment newInstance() {
+        
+        Bundle args = new Bundle();
+        
+        CheckFragment fragment = new CheckFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
