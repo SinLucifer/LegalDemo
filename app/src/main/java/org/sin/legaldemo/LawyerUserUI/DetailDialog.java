@@ -1,5 +1,7 @@
 package org.sin.legaldemo.LawyerUserUI;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -39,6 +41,7 @@ public class DetailDialog extends DialogFragment {
     private Button btWait;
     private Button btOk;
 
+
     public static DetailDialog newInstance(Task task) {
         Bundle args = new Bundle();
         args.putSerializable("task", task);
@@ -49,11 +52,12 @@ public class DetailDialog extends DialogFragment {
 
     @NonNull
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
         if (getArguments() != null){
             task = (Task) getArguments().getSerializable("task");
+
             UserBean lawyer = BmobUser.getCurrentUser(getContext(),UserBean.class);
 
             BmobACL acl = new BmobACL();
@@ -69,6 +73,7 @@ public class DetailDialog extends DialogFragment {
             task.update(getContext() , new UpdateListener() {
                 @Override
                 public void onSuccess() {
+
                     Utils.mToast("抢单成功~！");
                 }
 
@@ -84,7 +89,6 @@ public class DetailDialog extends DialogFragment {
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         tvTitle = (TextView) view.findViewById(R.id.dialog_title);
-        tvState = (TextView) view.findViewById(R.id.dialog_state);
         tvUsername = (TextView) view.findViewById(R.id.dialog_username);
         tvEmail = (TextView) view.findViewById(R.id.dialog_email);
 
@@ -94,14 +98,19 @@ public class DetailDialog extends DialogFragment {
 
 
         tvTitle.setText(task.getTitle());
-        tvState.setText("抢单中");
-        tvUsername.setText("发布人：" + task.getTask_publisher().getFirstName() + task.getTask_publisher().getLastName());
+        if(task.getTask_publisher().getSex() == true) {
+            tvUsername.setText("发布人：" + task.getTask_publisher().getFirstName() + "先生");
+        }else{
+            tvUsername.setText("发布人：" + task.getTask_publisher().getFirstName() + "女士");
+        }
         tvEmail.setText("邮箱：" + task.getTask_publisher().getEmail());
 
         btPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:" + task.getTask_publisher().getMobilePhoneNumber()));
+                startActivity(intent);
             }
         });
         btOk.setOnClickListener(new View.OnClickListener() {

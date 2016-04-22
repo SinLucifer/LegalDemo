@@ -80,7 +80,6 @@ public class CheckFragment extends Fragment implements XListView.IXListViewListe
 
                 viewAdapter = new LawyerCheckAdapter(getContext(), list, new MyOrderListener());
                 mListView.setAdapter(viewAdapter);  //获取成功后才设置adapter
-
             }
 
             @Override
@@ -145,6 +144,7 @@ public class CheckFragment extends Fragment implements XListView.IXListViewListe
                         DetailDialog detailDialog = DetailDialog.newInstance(task);
                         detailDialog.show(getActivity().getSupportFragmentManager(), "DetailDialog");
                         onRefresh();
+
                     }
 
                 }
