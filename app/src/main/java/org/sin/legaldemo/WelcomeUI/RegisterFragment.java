@@ -1,8 +1,11 @@
 package org.sin.legaldemo.WelcomeUI;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +15,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import org.sin.legaldemo.JavaBean.UserBean;
+import org.sin.legaldemo.Util.Content;
 import org.sin.legaldemo.Util.Utils;
 import org.sin.legaldemo.MainActivity;
 import org.sin.legaldemo.R;
@@ -30,6 +34,7 @@ public class RegisterFragment extends Fragment {
     private UserBean user;
     private boolean user_sex = true;
     private boolean user_isLawyer = false;
+    private String ability;
 
 
     @Nullable
@@ -87,12 +92,23 @@ public class RegisterFragment extends Fragment {
         rg_isLawyer.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == R.id.rb_lawyer_true)
+                if (checkedId == R.id.rb_lawyer_true) {
                     user_isLawyer = true;
+                    new AlertDialog.Builder(getContext(),android.R.style.Theme_Material_Light_Dialog_NoActionBar)
+                            .setTitle("选择您的特长")
+                            .setItems(Content.img_text, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    ability = Content.img_text[which];
+                                }
+                            }).show();
+                } else {
+                    user_isLawyer = false;
+                    ability = null;
+                }
             }
         });
     }
-
     public void onRegister() {
         user = new UserBean();
         user.setUsername(et_username.getText().toString().trim());
@@ -103,6 +119,7 @@ public class RegisterFragment extends Fragment {
         user.setFirstName(et_first_name.getText().toString().trim());
         user.setLastName(et_last_name.getText().toString().trim());
         user.setMobilePhoneNumber(et_phone.getText().toString().trim());
+        user.setAbility(ability);
 
         user.signUp(getActivity(), new SaveListener() {
             @Override

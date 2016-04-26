@@ -33,15 +33,6 @@ public class DetailDialog extends DialogFragment {
 
     private Task task;
 
-    private TextView tvTitle;
-    private TextView tvState;
-    private TextView tvUsername;
-    private TextView tvEmail;
-    private Button btPhone;
-    private Button btWait;
-    private Button btOk;
-
-
     public static DetailDialog newInstance(Task task) {
         Bundle args = new Bundle();
         args.putSerializable("task", task);
@@ -88,12 +79,12 @@ public class DetailDialog extends DialogFragment {
         View view = inflater.inflate(R.layout.dialog_detail, container);
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-        tvTitle = (TextView) view.findViewById(R.id.dialog_title);
-        tvUsername = (TextView) view.findViewById(R.id.dialog_username);
-        tvEmail = (TextView) view.findViewById(R.id.dialog_email);
+        TextView tvTitle = (TextView) view.findViewById(R.id.dialog_title);
+        TextView tvUsername = (TextView) view.findViewById(R.id.dialog_username);
+        TextView tvEmail = (TextView) view.findViewById(R.id.dialog_email);
 
-        btPhone=(Button) view.findViewById(R.id.dialog_phone);
-        btOk = (Button) view.findViewById(R.id.dialog_ok);
+        Button btPhone=(Button) view.findViewById(R.id.dialog_phone);
+        Button btOk = (Button) view.findViewById(R.id.dialog_ok);
 
 
 

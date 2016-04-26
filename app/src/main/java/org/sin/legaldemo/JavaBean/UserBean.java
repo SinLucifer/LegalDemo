@@ -8,6 +8,15 @@ public class UserBean extends BmobUser {
     private boolean isLayer;
     private String firstName;
     private String lastName;
+    private String ability;
+
+    public String getAbility() {
+        return ability;
+    }
+
+    public void setAbility(String ability) {
+        this.ability = ability;
+    }
 
     public String getFirstName() {
         return firstName;

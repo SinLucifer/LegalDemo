@@ -1,9 +1,7 @@
 package org.sin.legaldemo.NormalUserUI;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -14,10 +12,6 @@ import android.widget.TextView;
 import org.sin.legaldemo.JavaBean.Task;
 import org.sin.legaldemo.JavaBean.UserBean;
 import org.sin.legaldemo.R;
-import org.sin.legaldemo.Util.Content;
-
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
 
 import cn.bmob.v3.BmobACL;
 

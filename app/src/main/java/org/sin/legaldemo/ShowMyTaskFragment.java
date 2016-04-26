@@ -27,14 +27,12 @@ import me.maxwin.view.XListView;
 
 
 public class ShowMyTaskFragment extends Fragment implements XListView.IXListViewListener {
-    private View mView;
     private XListView mListView;
     private BmobQuery<Task> mQuery;
     private BaseAdapter viewAdapter;
     private android.os.Handler mHandler;
 
     private UserBean user;
-    private Task task;
 
     public static ShowMyTaskFragment newInstance() {
         
@@ -48,7 +46,7 @@ public class ShowMyTaskFragment extends Fragment implements XListView.IXListView
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mView = inflater.inflate(R.layout.fragment_listview,container,false);
+        View mView = inflater.inflate(R.layout.fragment_listview,container,false);
         mListView = (XListView) mView.findViewById(R.id.xListView);
         mListView.getOnItemClickListener();
 
@@ -130,7 +128,7 @@ public class ShowMyTaskFragment extends Fragment implements XListView.IXListView
             for (int i = mListView.getFirstVisiblePosition()
                  ; i <= mListView.getLastVisiblePosition(); i++) {
 
-                task = (Task) mListView.getAdapter().getItem(i);
+                Task task = (Task) mListView.getAdapter().getItem(i);
                 if (v == mListView.getChildAt(i - mListView.getFirstVisiblePosition())
                         .findViewById(R.id.list_item_card_cancel)) {
                     CancelDialog cancelDialog = CancelDialog.newInstance(task.getObjectId());

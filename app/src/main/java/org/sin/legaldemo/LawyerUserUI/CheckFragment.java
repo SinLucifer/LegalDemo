@@ -1,19 +1,15 @@
 package org.sin.legaldemo.LawyerUserUI;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Toast;
 
-import org.sin.legaldemo.CancelDialog;
 import org.sin.legaldemo.JavaBean.Task;
 import org.sin.legaldemo.JavaBean.UserBean;
 import org.sin.legaldemo.LawyerUserUI.LawyerAdapter.LawyerCheckAdapter;
@@ -25,22 +21,17 @@ import java.util.Date;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.UpdateListener;
 import me.maxwin.view.XListView;
 
 /**
  *
  */
 public class CheckFragment extends Fragment implements XListView.IXListViewListener {
-    private View mView;
     private XListView mListView;
     private BmobQuery<Task> mQuery;
     private BaseAdapter viewAdapter;
     private android.os.Handler mHandler;
-
-    private Task task;
 
     public static CheckFragment newInstance() {
         
@@ -54,7 +45,7 @@ public class CheckFragment extends Fragment implements XListView.IXListViewListe
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mView = inflater.inflate(R.layout.fragment_listview, container, false);
+        View mView = inflater.inflate(R.layout.fragment_listview, container, false);
         mListView = (XListView) mView.findViewById(R.id.xListView);
         mListView.getOnItemClickListener();
 
@@ -74,6 +65,7 @@ public class CheckFragment extends Fragment implements XListView.IXListViewListe
         mQuery.order("-createdAt");
         mQuery.include("task_publisher");
         mQuery.addWhereEqualTo("isBook", false);
+        mQuery.addWhereEqualTo("event_type", UserBean.getCurrentUser(getContext(),UserBean.class).getAbility());
         mQuery.findObjects(getContext(), new FindListener<Task>() {
             @Override
             public void onSuccess(List<Task> list) {
@@ -125,7 +117,7 @@ public class CheckFragment extends Fragment implements XListView.IXListViewListe
         public void onClick(View v) {
             for (int i = mListView.getFirstVisiblePosition()
                  ; i <= mListView.getLastVisiblePosition(); i++) {
-                task = (Task) mListView.getAdapter().getItem(i);
+                Task task = (Task) mListView.getAdapter().getItem(i);
 
                 if (v == mListView.getChildAt(i - mListView.getFirstVisiblePosition())
                         .findViewById(R.id.list_item_card_cancel)) {
@@ -146,11 +138,8 @@ public class CheckFragment extends Fragment implements XListView.IXListViewListe
                         onRefresh();
 
                     }
-
                 }
             }
-
-
         }
     }
 

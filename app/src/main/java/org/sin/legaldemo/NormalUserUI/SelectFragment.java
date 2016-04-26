@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,8 +17,6 @@ import org.sin.legaldemo.NormalUserUI.UserAdapter.GridViewAdapter;
 import org.sin.legaldemo.R;
 
 public class SelectFragment extends Fragment {
-    private View mView;
-    private GridView mGridView;
 
     public static SelectFragment newInstance() {
         
@@ -33,9 +30,9 @@ public class SelectFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mView = inflater.inflate(R.layout.fragment_normal_select, container, false);
+        View mView = inflater.inflate(R.layout.fragment_normal_select, container, false);
 
-        mGridView = (GridView) mView.findViewById(R.id.gv_select_task);
+        GridView mGridView = (GridView) mView.findViewById(R.id.gv_select_task);
 //        Log.d("Sin", "In SelectFragment");
         mGridView.setAdapter(new GridViewAdapter(getContext()));
 

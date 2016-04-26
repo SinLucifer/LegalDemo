@@ -13,7 +13,6 @@ import cn.bmob.v3.Bmob;
 
 
 public class WelcomeActivity extends FragmentActivity {
-    private WelcomeFragment mFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +25,7 @@ public class WelcomeActivity extends FragmentActivity {
             Utils.start_Activity(this, MainActivity.class);
         }
 
-        mFragment = new WelcomeFragment();
+        WelcomeFragment mFragment = new WelcomeFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.welcome_fragment_container, mFragment);
         transaction.commit();

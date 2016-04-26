@@ -21,22 +21,19 @@ import cn.bmob.v3.listener.SaveListener;
 
 
 public class LoginFragment extends Fragment {
-    private View mView;
     private EditText et_username;
     private EditText et_password;
-    private Button btn_login;
-    private Button btn_register;
 
     private RegisterFragment registerFragment;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mView = inflater.inflate(R.layout.fragment_login, container, false);
+        View mView = inflater.inflate(R.layout.fragment_login, container, false);
         et_username = (EditText) mView.findViewById(R.id.et_username);
         et_password = (EditText) mView.findViewById(R.id.et_userpwd);
 
-        btn_login = (Button) mView.findViewById(R.id.btn_login);
+        Button btn_login = (Button) mView.findViewById(R.id.btn_login);
         btn_login.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -66,7 +63,7 @@ public class LoginFragment extends Fragment {
         });
 
 
-        btn_register = (Button) mView.findViewById(R.id.btn_register2);
+        Button btn_register = (Button) mView.findViewById(R.id.btn_register2);
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
