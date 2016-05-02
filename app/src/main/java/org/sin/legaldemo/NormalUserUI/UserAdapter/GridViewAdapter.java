@@ -15,7 +15,6 @@ public class GridViewAdapter extends BaseAdapter {
 
     private Context mContext;
 
-
     public GridViewAdapter(Context mContext) {
         super();
         this.mContext = mContext;

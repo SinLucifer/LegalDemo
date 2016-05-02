@@ -12,25 +12,19 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
-import junit.framework.Test;
-
 import org.sin.legaldemo.JavaBean.Task;
 import org.sin.legaldemo.JavaBean.UserBean;
 import org.sin.legaldemo.R;
 import org.sin.legaldemo.Util.Utils;
-import org.w3c.dom.Text;
 
 import cn.bmob.v3.BmobACL;
 import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 
 
-/**
- *
- */
-public class DetailDialog extends DialogFragment {
 
+public class DetailDialog extends DialogFragment {
+    //TODO 先抢后通知
     private Task task;
 
     public static DetailDialog newInstance(Task task) {
@@ -64,7 +58,6 @@ public class DetailDialog extends DialogFragment {
             task.update(getContext() , new UpdateListener() {
                 @Override
                 public void onSuccess() {
-
                     Utils.mToast("抢单成功~！");
                 }
 
@@ -89,7 +82,7 @@ public class DetailDialog extends DialogFragment {
 
 
         tvTitle.setText(task.getTitle());
-        if(task.getTask_publisher().getSex() == true) {
+        if(task.getTask_publisher().getSex()) {
             tvUsername.setText("发布人：" + task.getTask_publisher().getFirstName() + "先生");
         }else{
             tvUsername.setText("发布人：" + task.getTask_publisher().getFirstName() + "女士");

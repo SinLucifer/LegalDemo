@@ -25,6 +25,8 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.2.1'
     compile 'com.android.support:support-v4:23.2.1'
     compile 'com.android.support:design:23.2.1'
+    compile 'com.android.support:cardview-v7:+'
+    compile 'com.jcodecraeer:xrecyclerview:1.2.7'
     compile files('libs/Bmob_Push_V0.6beta_20150408.jar')
     compile files('libs/BmobSDK_V3.4.5_1111.jar')
     compile files('libs/okhttp-2.4.0.jar')
